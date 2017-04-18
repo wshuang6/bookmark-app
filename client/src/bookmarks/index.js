@@ -4,7 +4,7 @@ import {fetchBookmarks} from './actions';
 
 export class Bookmarks extends React.Component {
   renderResults() {
-    console.log(this.props);
+    console.log(this.props.bookmarks);
     if(this.props.loading) {
       return <li>Loading</li>;
     }
@@ -12,7 +12,7 @@ export class Bookmarks extends React.Component {
       return <li>Error</li>;
     }
     const bookmarkList = this.props.bookmarks.map((bookmark, i) => {
-      return (<li key={i}>{bookmark.url}{bookmark.title}{bookmark.notes}{bookmark.folderid}{bookmark.image}{bookmark.bookmarkid}{bookmark.userid}</li>)
+      return (<li key={bookmark.bookmarkid}>{bookmark.url}{bookmark.title}{bookmark.notes}{bookmark.folderid}{bookmark.image}{bookmark.userid}</li>)
     });
     return (bookmarkList)
   }
@@ -22,17 +22,20 @@ export class Bookmarks extends React.Component {
   }
   render () {
     return (
-      <ul>
-        {this.renderResults()}
-      </ul>
+      <div>
+        <ul>
+          {this.renderResults()}
+        </ul>
+        <button>ADD A BOOKMARK</button>
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state)  => ({
-  bookmarks: state.bookmarks,
-  loading: state.loading, 
-  error: state.error,
+  bookmarks: state.bookmarks.bookmarks,
+  loading: state.bookmarks.loading, 
+  error: state.bookmarks.error,
 })
 
 export default connect(mapStateToProps)(Bookmarks);

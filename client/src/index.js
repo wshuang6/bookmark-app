@@ -5,9 +5,9 @@ import './index.css';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
-import bookmarkReducer from './bookmarks/reducers'
+import reducers from './reducers'
 
-const store = createStore(bookmarkReducer, 
+const store = createStore(reducers, 
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), 
   applyMiddleware(thunk)
 );
