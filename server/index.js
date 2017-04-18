@@ -11,21 +11,19 @@ const {router: usersRouter} = require('./users');
 
 // API endpoints go here!
 
-app.use('/', usersRouter);
+app.use('/api/', usersRouter);
 
-app.get('/users', (req, res) => {
-    knex('users')
-        .select(['email', 'userid'])
-        .then(results => {
-            console.log('someone queried something');
-            console.log(results);
-            res.json(results);
-        })
-})
+// app.get('/users', (req, res) => {
+//     knex('users')
+//         .select(['email', 'userid'])
+//         .then(results => {
+//             res.json(results);
+//         })
+// })
 
 // FOLDERS GET ENDPOINTS
 
-app.get('/folders', (request, res) => {
+app.get('/api/folders', (request, res) => {
     knex('folders')
         .select(['foldername', 'userid'])
         .then(results => {
@@ -37,7 +35,7 @@ app.get('/folders', (request, res) => {
     })
 })
 
-app.get('/', (request, res) => {
+app.get('/api/', (request, res) => {
     knex('bookmarks')
         .select(['url', 'title', 'notes', 'folderid', 'image', 'bookmarkid', 'userid'])
         .then(results => {
@@ -50,7 +48,7 @@ app.get('/', (request, res) => {
 })
 
 
-app.get('/:id', (req, res) => {
+app.get('/api/:id', (req, res) => {
     knex('bookmarks')
         .select(['url', 'title', 'notes', 'folderid', 'image', 'bookmarkid', 'userid'])
         .where('userid', req.params.id)
@@ -66,7 +64,7 @@ app.get('/:id', (req, res) => {
 // BOOKMARK POST AND PATCH ENDPOINTS
 
 
-app.post('/', jsonParser, (req, res) => {
+app.post('/api/', jsonParser, (req, res) => {
     const { url, title, notes, folderid, image, bookmarkid, userid } = req.body;
 	if (url === '' || url === ' '|| typeof url === 'undefined') {
 		return res.status(404).json({message: 'Bad request: enter valid bookmark url'});
@@ -93,7 +91,7 @@ app.post('/', jsonParser, (req, res) => {
 
 // BOOKMARK PUT ENDPOINT
 
-app.patch('/:id', jsonParser, (req, res) => {
+app.patch('/api/:id', jsonParser, (req, res) => {
      knex('bookmarks')
      .where('bookmarkid', req.params.id)
      .update(req.body)
@@ -108,7 +106,7 @@ app.patch('/:id', jsonParser, (req, res) => {
 
 // BOOKMARK DELETE ENDPOINT
 
-app.delete('/:id', (req, res) => {
+app.delete('/api/:id', (req, res) => {
 	knex.del()
     .where('bookmarkid',req.params.id)
     .from('bookmarks')
@@ -126,7 +124,7 @@ app.delete('/:id', (req, res) => {
 
 // FOLDERS SPECIFIC GET ENDPOINT
 
-app.get('/folders/:id', (req, res) => {
+app.get('/api/folders/:id', (req, res) => {
     knex('folders')
         .select(['foldername', 'userid'])
         .where('folderid', req.params.id)
@@ -141,7 +139,7 @@ app.get('/folders/:id', (req, res) => {
 
 // FOLDERS POST ENDPOINT
 
-app.post('/folders', jsonParser, (req, res) => {
+app.post('/api/folders', jsonParser, (req, res) => {
     const { foldername, userid } = req.body;
 	if (foldername === '' || foldername === ' '|| typeof foldername === 'undefined') {
 		return res.status(404).json({message: 'Bad request: enter valid foldername'});
@@ -162,7 +160,7 @@ app.post('/folders', jsonParser, (req, res) => {
 
 // // FOLDER PATCH ENDPOINT
 
-app.patch('/folders/:id', jsonParser, (req, res) => {
+app.patch('/api/folders/:id', jsonParser, (req, res) => {
     knex('folders')
      .where('folderid', req.params.id)
      .update(req.body)
@@ -180,7 +178,7 @@ app.patch('/folders/:id', jsonParser, (req, res) => {
 
 // // FOLDER DELETE ENDPOINT
 
-app.delete('/folders/:id', (req, res) => {
+app.delete('/api/folders/:id', (req, res) => {
 	knex.del()
     .where('folderid',req.params.id)
     .from('folders')

@@ -45,7 +45,7 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
 passport.use(basicStrategy);
 router.use(passport.initialize());
 
-router.post('/users', (req, res) => {
+router.post('/api/users', (req, res) => {
   if (!req.body) {
     return res.status(400).json({message: 'No request body'});
   }
@@ -105,10 +105,9 @@ router.post('/users', (req, res) => {
 
 
 
-router.get('/users/me',
+router.get('/api/users/me',
   passport.authenticate('basic', {session: false}),
   (req, res) => {
-    console.log(req.user);
     res.json({user: req.user})}
 );
 
