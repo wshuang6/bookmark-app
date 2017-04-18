@@ -1,5 +1,6 @@
 import React from 'react';
 import Bookmarks from './bookmarks';
+import Folders from './folders';
 import Users from './users';
 
 export default class Components extends React.Component {
@@ -8,6 +9,7 @@ export default class Components extends React.Component {
       <div>
         <Users />
         <Bookmarks />
+        <Folders />
       </div>
     )
   }
