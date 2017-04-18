@@ -2,7 +2,8 @@ import {FETCH_FOLDERS_REQUEST, FETCH_FOLDERS_SUCCESS, FETCH_FOLDERS_ERROR} from 
 const initialState = {
     folders: [],
     loading: false,
-    error: null
+    error: null, 
+    currentFolderId: 878787
 };
 
 export default (state=initialState, action) => {

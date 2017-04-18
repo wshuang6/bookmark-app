@@ -51,6 +51,7 @@ const mapStateToProps = (state)  => ({
   error: state.bookmarks.error,
   userid: state.users.userid,
   toggleAdd: state.bookmarks.toggleAdd,
+  currentFolderId: state.folders.currentFolderId
   //identifying which folder user should be in
 })
 

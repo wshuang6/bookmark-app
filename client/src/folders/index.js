@@ -37,6 +37,8 @@ const mapStateToProps = (state)  => ({
   folders: state.folders.folders,
   loading: state.folders.loading, 
   error: state.folders.error,
+  userid: state.users.userid,
+  currentFolderId: state.folders.currentFolderId
 })
 
 export default connect(mapStateToProps)(Folders);
