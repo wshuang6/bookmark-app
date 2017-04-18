@@ -1,11 +1,18 @@
-import {FETCH_BOOKMARKS_REQUEST, FETCH_BOOKMARKS_SUCCESS, FETCH_BOOKMARKS_ERROR} from './actions';
+import {FETCH_BOOKMARKS_REQUEST, FETCH_BOOKMARKS_SUCCESS, FETCH_BOOKMARKS_ERROR, TOGGLE_ADD_BOOKMARK} from './actions';
 const initialState = {
     bookmarks: [],
     loading: false,
-    error: null
+    error: null,
+    toggleAdd: false
 };
 
 export default (state=initialState, action) => {
+    if(action.type === TOGGLE_ADD_BOOKMARK) {
+        return {
+            ...state,
+            toggleAdd: !state.toggleAdd
+        }
+    }
     if(action.type === FETCH_BOOKMARKS_REQUEST) {
         return {
             ...state,

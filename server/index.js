@@ -13,13 +13,13 @@ const {router: usersRouter} = require('./users');
 
 app.use('/api/', usersRouter);
 
-// app.get('/users', (req, res) => {
-//     knex('users')
-//         .select(['email', 'userid'])
-//         .then(results => {
-//             res.json(results);
-//         })
-// })
+app.get('/api/users', (req, res) => {
+    knex('users')
+        .select()
+        .then(results => {
+            res.json(results);
+        })
+})
 
 // FOLDERS GET ENDPOINTS
 
