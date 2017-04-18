@@ -5,7 +5,12 @@ const knex = require('knex')(DEV);
 
 const app = express();
 
+const {router: usersRouter} = require('./users');
+
 // API endpoints go here!
+
+app.use('/', usersRouter);
+
 app.get('/users', (req, res) => {
     knex('users')
         .select(['email', 'userid'])
