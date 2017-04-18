@@ -15,9 +15,15 @@ const fetchBookmarksError = (error) => ({
     error
 })
 
+export const TOGGLE_ADD_BOOKMARK = 'TOGGLE_ADD_BOOKMARK';
+export const toggleAddBookmark = () => ({
+    type: TOGGLE_ADD_BOOKMARK
+});
+
+
 export const fetchBookmarks = () => dispatch => {
   dispatch(fetchBookmarksRequest());
-  return fetch(`/api/`)
+  return fetch(`/api/`) //fetch only the bookmarks that belong to this user
   .then(res => res.json())
   .then((res) => {
       dispatch(fetchBookmarksSuccess(res));
