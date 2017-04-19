@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchBookmarks, toggleAddBookmark, deleteBookmarks} from './actions';
+import {fetchBookmarks, toggleAddBookmark, editBookmark, updateBookmarks, deleteBookmarks} from './actions';
 import AddBookmark from './add-bookmark';
 
 export class Bookmarks extends React.Component {
@@ -18,8 +18,10 @@ export class Bookmarks extends React.Component {
         if (bookmark.image) {return bookmark.image}
         return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
       })();
-      return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" /><a href={bookmark.url}>{bookmark.title}</a> - {bookmark.notes}
-      <button id={bookmark.bookmarkid} onClick={e => {this.deleteBookmark(e.target.id)}}>--</button></li>)
+      return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" />
+      <a href={bookmark.url}>{bookmark.title}</a> - {bookmark.notes}
+      <button onClick={() => {this.editBookmark(bookmark)}}>Edit</button>
+      <button onClick={() => {this.deleteBookmark(bookmark.bookmarkid)}}>Delete</button></li>)
     });
     return (bookmarkList)
   }
@@ -29,6 +31,10 @@ export class Bookmarks extends React.Component {
   toggleAddBookmark(event) {
     event.preventDefault();
     this.props.dispatch(toggleAddBookmark());
+  }
+  editBookmark(bookmark) {
+    event.preventDefault();
+    this.props.dispatch(editBookmark(bookmark));
   }
   componentDidMount() {
     this.props.dispatch(fetchBookmarks(this.props.userid));
@@ -58,6 +64,7 @@ const mapStateToProps = (state)  => ({
   error: state.bookmarks.error,
   userid: state.users.userid,
   toggleAdd: state.bookmarks.toggleAdd,
+  editing: state.bookmarks.editing,
   currentFolderId: state.folders.currentFolderId
 })
 
