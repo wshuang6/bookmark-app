@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchBookmarks, toggleAddBookmark} from './actions';
+import {fetchBookmarks, toggleAddBookmark, createBookmarks, deleteBookmarks} from './actions';
 import AddBookmark from './add-bookmark';
 
 export class Bookmarks extends React.Component {
@@ -20,11 +20,12 @@ export class Bookmarks extends React.Component {
     return (bookmarkList)
   }
   toggleAddBookmark(event) {
-    event.preventDefault()
-      this.props.dispatch(toggleAddBookmark());
+    event.preventDefault();
+    this.props.dispatch(toggleAddBookmark());
   }
   componentDidMount() {
-    this.props.dispatch(fetchBookmarks());
+    this.props.dispatch(fetchBookmarks(this.props.userid));
+
   }
   render () {
     let bookmarkModal;
@@ -35,7 +36,11 @@ export class Bookmarks extends React.Component {
       <div>
         <ul>
           {bookmarkModal}
-          <a className="what" href="#" onClick={e => this.toggleAddBookmark(e)}>
+          <p onClick={e => {
+            {/*this.props.dispatch(createBookmarks(this.props.userid, {url: 'googlie', title: 'stuff', notes: 'no', folderid: 1, userid: this.props.userid}));*/}
+            {/*this.props.dispatch(deleteBookmarks(this.props.userid, 14))*/}
+            }}>CLICK ME TO POST</p>
+          <a href="#" onClick={e => this.toggleAddBookmark(e)}>
               Add bookmark
           </a>
           {this.renderResults()}

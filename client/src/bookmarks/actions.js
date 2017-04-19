@@ -21,9 +21,45 @@ export const toggleAddBookmark = () => ({
 });
 
 
-export const fetchBookmarks = () => dispatch => {
+export const fetchBookmarks = userid => dispatch => {
   dispatch(fetchBookmarksRequest());
-  return fetch(`/api/`) //fetch only the bookmarks that belong to this user
+  return fetch(`/api/${userid}`)
+  .then(res => res.json())
+  .then((res) => {
+      dispatch(fetchBookmarksSuccess(res));
+  })
+  .catch((err)=> {
+      dispatch(fetchBookmarksError(err));
+  })
+}
+
+export const createBookmarks = (userid, postInfo) => dispatch => {
+  dispatch(fetchBookmarksRequest());
+  return fetch(`/api/`, {
+    method: 'post',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify(postInfo)
+  })
+  .then(res => {
+    console.log('post worked')
+    console.log(res);
+    return fetch(`/api/${userid}`)})
+  .then(res => res.json())
+  .then((res) => {
+      dispatch(fetchBookmarksSuccess(res));
+  })
+  .catch((err)=> {
+      dispatch(fetchBookmarksError(err));
+  })    
+}
+
+export const deleteBookmarks = (userid, id) => dispatch => {
+  dispatch(fetchBookmarksRequest());
+  return fetch(`/api/${id}`, {method: 'delete'})
+  .then(res => fetch(`/api/${userid}`))
   .then(res => res.json())
   .then((res) => {
       dispatch(fetchBookmarksSuccess(res));
