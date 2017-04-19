@@ -48,9 +48,7 @@ export const createBookmarks = (userid, postInfo) => dispatch => {
     }, 
     body: JSON.stringify(postInfo)
   })
-  .then(res => {
-    console.log('post worked')
-    console.log(res);
+  .then(() => {
     return fetch(`/api/${userid}`)})
   .then(res => res.json())
   .then((res) => {

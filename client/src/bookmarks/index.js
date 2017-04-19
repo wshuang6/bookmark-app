@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchBookmarks, toggleAddBookmark, editBookmark, updateBookmarks, deleteBookmarks} from './actions';
-import AddBookmark from './add-bookmark';
+import {fetchBookmarks, toggleAddBookmark, editBookmark, deleteBookmarks} from './actions';
+import BookmarkModal from './bookmark-modal';
 
 export class Bookmarks extends React.Component {
   renderResults() {
@@ -41,8 +41,8 @@ export class Bookmarks extends React.Component {
   }
   render () {
     let bookmarkModal;
-    if (this.props.toggleAdd) {
-        bookmarkModal = <AddBookmark />;
+    if (this.props.toggleAdd || this.props.editing) {
+        bookmarkModal = <BookmarkModal />;
     }
     return (
       <div>
