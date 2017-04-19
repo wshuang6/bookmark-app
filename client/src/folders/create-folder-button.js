@@ -15,7 +15,7 @@ export default class CreateFolder extends React.Component {
                 <ul className="clearfix">
                     <li>
                         <a className="newfolder" href="#" onClick={e => this.onaNewFolder(e)}>
-                            Create New Folder
+                            Add folder
                         </a>
                     </li>
                 </ul>

@@ -1,18 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {toggleAddBookmark} from './actions';
+import {toggleAddBookmark, createBookmarks} from './actions';
 
 export class AddBookmark extends React.Component {
     hide(event) {
         event.preventDefault();
         this.props.dispatch(toggleAddBookmark());
     }
+    postBookmark(e) {
+        const postBody = {
+            url: e.target.url.value,
+            title: e.target.title.value,
+            image: e.target.image.value,
+            notes: e.target.notes.value,
+            userid: this.props.userid
+        }
+        console.log(postBody);
+        this.props.dispatch(createBookmarks(this.props.userid, postBody));
+    }
 
     render() {
         return (
             <div className="overlay" id="modal">
-              <form>
+              <form onSubmit={(e) => this.postBookmark(e)}>
                 <p>Bookmark URL 
                     <input type="text" name="url" id="url"
                         className="text" autoComplete="off"
@@ -41,4 +52,7 @@ export class AddBookmark extends React.Component {
     }
 }
 
-export default connect()(AddBookmark);
+const mapStateToProps = (state) => ({
+      userid: state.users.userid
+})
+export default connect(mapStateToProps)(AddBookmark);

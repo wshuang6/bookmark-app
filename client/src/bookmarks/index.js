@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchBookmarks, toggleAddBookmark, createBookmarks, deleteBookmarks} from './actions';
+import {fetchBookmarks, toggleAddBookmark, deleteBookmarks} from './actions';
 import AddBookmark from './add-bookmark';
 
 export class Bookmarks extends React.Component {
@@ -12,12 +12,19 @@ export class Bookmarks extends React.Component {
     if(this.props.error) {
       return <li>Error</li>;
     }
-    //change promise so only get bookmarks where bookmark.userid === userid
-    //filter array where userid is equal to current folderid
-    const bookmarkList = this.props.bookmarks.map((bookmark, i) => {
-      return (<li key={bookmark.bookmarkid}>{bookmark.url}{bookmark.title}{bookmark.notes}{bookmark.folderid}{bookmark.image}{bookmark.userid}        <button>-</button></li>)
+    let bookmarkList = this.props.bookmarks.filter((bookmark) => {return bookmark.folderid == this.props.currentFolderId})
+    bookmarkList = bookmarkList.map((bookmark) => {
+      const imageURL = (() => {
+        if (bookmark.image) {return bookmark.image}
+        return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
+      })();
+      return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" /><a href={bookmark.url}>{bookmark.title}</a> - {bookmark.notes}
+      <button id={bookmark.bookmarkid} onClick={e => {this.deleteBookmark(e.target.id)}}>--</button></li>)
     });
     return (bookmarkList)
+  }
+  deleteBookmark(bookmarkid) {
+    this.props.dispatch(deleteBookmarks(this.props.userid, bookmarkid))
   }
   toggleAddBookmark(event) {
     event.preventDefault();
@@ -25,7 +32,6 @@ export class Bookmarks extends React.Component {
   }
   componentDidMount() {
     this.props.dispatch(fetchBookmarks(this.props.userid));
-
   }
   render () {
     let bookmarkModal;
@@ -36,10 +42,6 @@ export class Bookmarks extends React.Component {
       <div>
         <ul>
           {bookmarkModal}
-          <p onClick={e => {
-            {/*this.props.dispatch(createBookmarks(this.props.userid, {url: 'googlie', title: 'stuff', notes: 'no', folderid: 1, userid: this.props.userid}));*/}
-            {/*this.props.dispatch(deleteBookmarks(this.props.userid, 14))*/}
-            }}>CLICK ME TO POST</p>
           <a href="#" onClick={e => this.toggleAddBookmark(e)}>
               Add bookmark
           </a>
@@ -57,7 +59,6 @@ const mapStateToProps = (state)  => ({
   userid: state.users.userid,
   toggleAdd: state.bookmarks.toggleAdd,
   currentFolderId: state.folders.currentFolderId
-  //identifying which folder user should be in
 })
 
 export default connect(mapStateToProps)(Bookmarks);

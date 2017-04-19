@@ -3,7 +3,7 @@ const initialState = {
     folders: [],
     loading: false,
     error: null, 
-    currentFolderId: 878787
+    currentFolderId: null
 };
 
 export default (state=initialState, action) => {
