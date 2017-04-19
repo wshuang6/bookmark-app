@@ -70,13 +70,13 @@ app.post('/api/', jsonParser, (req, res) => {
 		return res.status(404).json({message: 'Bad request: enter valid bookmark url'});
 	} 
     knex('bookmarks').insert({
-    url: url,
-  	title: title,
-	notes: notes,
-  	folderid: folderid,
-  	image: image,
-    userid: userid
-  })
+        url: url,
+        title: title,
+        notes: notes,
+        folderid: folderid,
+        image: image,
+        userid: userid
+    })
 	.returning(['url', 'title', 'notes', 'folderid', 'image', 'bookmarkid', 'userid'])
 	.then(result => {
 		return res.status(201).json(result);
@@ -127,7 +127,7 @@ app.delete('/api/:id', (req, res) => {
 app.get('/api/folders/:id', (req, res) => {
     knex('folders')
         .select(['foldername', 'userid'])
-        .where('folderid', req.params.id)
+        .where('userid', req.params.id)
         .then(results => {
             res.json(results);
         })

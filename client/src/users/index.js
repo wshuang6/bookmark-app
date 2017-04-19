@@ -6,7 +6,7 @@ export class Bookmarks extends React.Component {
     const email = this.props.email;
     return (
       <div>
-        <nav>
+        <nav className='nav'>
           <p>user: {email}</p>
         </nav>
       </div>
