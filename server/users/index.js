@@ -85,17 +85,20 @@ router.post('/api/users', (req, res) => {
     .where('email', email)
     .then(results => {
       if (results[0].count > 0) {
+        console.log('username taken!!!')
         return res.status(422).json({message: 'username already taken'});
       }
       return hashPassword(password)
     })
     .then(hash => {
-      knex('users').insert({
+      knex('users')
+      .insert({
         email: email,
         password: hash
       })
+      .returning(['email', 'userid'])
       .then(user => {
-        return res.status(201).json({message: 'user created'});
+        return res.status(201).json(user);
       })
     })
     .catch(err => {
@@ -103,12 +106,18 @@ router.post('/api/users', (req, res) => {
     });
 });
 
-
-
-router.get('/api/users/me',
-  passport.authenticate('basic', {session: false}),
-  (req, res) => {
-    res.json({user: req.user})}
+router.post(`/api/users/login`, passport.authenticate('basic', {session: false}), (req, res) => {
+    knex('users')
+    .select(['userid', 'email'])
+    .where('email', req.body.email)
+    .then(results => {
+        res.json(results);
+    })
+    .catch((error) => {
+        console.error('ERROR:', error.message || error);
+        res.status(500);
+    })
+  }
 );
 
 

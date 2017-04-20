@@ -5,7 +5,6 @@ import BookmarkModal from './bookmark-modal';
 
 export class Bookmarks extends React.Component {
   renderResults() {
-    console.log(this.props.bookmarks);
     if(this.props.loading) {
       return <li>Loading</li>;
     }

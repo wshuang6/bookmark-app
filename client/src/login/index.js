@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {toggleLoggingIn} from './actions';
+import {toggleLoggingIn, createUser, validateUser} from './actions';
 
 export class Login extends React.Component {
   loggingIn(e) {
@@ -13,15 +13,22 @@ export class Login extends React.Component {
   }
   verifyLogIn(e) {
     e.preventDefault();
-    console.log('attempted to log in');
-  }
-  createUser(e) {
     localStorage.setItem('email', e.target.email.value);
     localStorage.setItem('password', e.target.password.value);
-    // localStorage.getItem('password');
-    console.log(localStorage.getItem('boobs'));
+    const user = {email: localStorage.getItem('email'), password: localStorage.getItem('password')}
+    console.log(user);
+    console.log(`Basic ${user.email}:${user.password}`)
+    this.props.dispatch(validateUser(user));
+  }
+  createUser(e) {
     e.preventDefault();
-    console.log('attempted to create user');
+    localStorage.setItem('email', e.target.email.value);
+    localStorage.setItem('password', e.target.password.value);
+    const user = {
+      email: localStorage.getItem('email'), 
+      password: localStorage.getItem('password')
+    }
+    this.props.dispatch(createUser(user));
   }
   render () {
     const formFiller = (
@@ -30,7 +37,7 @@ export class Login extends React.Component {
         <input type="email" placeholder="foo@bar.com" name="email" id="email" required />
         <label htmlFor="password">Password</label>
         <input type="password" placeholder="1234passw0rd" name="password" id="password" required />
-        <button type="submit">Log in</button>
+        <button type="submit">Submit</button>
       </div>)
     const renderLogIn = (() => {
       if (this.props.loggingIn) {
@@ -40,7 +47,7 @@ export class Login extends React.Component {
               <legend>Log in</legend>
               {formFiller}
             </fieldset>
-            <button onClick={(e) => this.signingUp(e)}>Signing up? Click here.</button>
+            <a onClick={(e) => this.signingUp(e)}>Signing up? Click here.</a>
           </form>)
       } else
       if (!this.props.loggingIn) {
@@ -50,7 +57,7 @@ export class Login extends React.Component {
               <legend>Sign up</legend>
               {formFiller}
             </fieldset>
-            <button onClick={(e) => this.loggingIn(e)}>Logging in? Click here.</button>
+            <a onClick={(e) => this.loggingIn(e)}>Logging in? Click here.</a>
           </form>)
       }
     })();
