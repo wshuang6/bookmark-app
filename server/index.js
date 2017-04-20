@@ -11,7 +11,7 @@ const {router: usersRouter} = require('./users');
 
 // API endpoints go here!
 
-app.use('/api/', usersRouter);
+app.use('/', usersRouter);
 
 app.get('/api/users', (req, res) => {
     knex('users')
