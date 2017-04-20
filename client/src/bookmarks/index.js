@@ -19,7 +19,7 @@ export class Bookmarks extends React.Component {
         return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
       })();
       return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" />
-      <a href={bookmark.url}>{bookmark.title}</a> - {bookmark.notes}
+      <a href={bookmark.url}>{bookmark.title}</a> - {bookmark.notes}{bookmark.folderid}
       <button onClick={() => {this.editBookmark(bookmark)}}>Edit</button>
       <button onClick={() => {this.deleteBookmark(bookmark.bookmarkid)}}>Delete</button></li>)
     });

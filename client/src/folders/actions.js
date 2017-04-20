@@ -15,9 +15,20 @@ const fetchFoldersError = (error) => ({
     error
 })
 
-export const fetchFolders = () => dispatch => {
+export const TOGGLE_ADD_FOLDER = 'TOGGLE_ADD_FOLDER';
+export const toggleAddFolder = () => ({
+    type: TOGGLE_ADD_FOLDER
+});
+
+export const EDIT_FOLDER = 'EDIT_FOLDER';
+export const editFolder = (editing) => ({
+    type: EDIT_FOLDER,
+    editing
+});
+
+export const fetchFolders = userid => dispatch => {
   dispatch(fetchFoldersRequest());
-  return fetch(`/api/folders`)
+  return fetch(`/api/folders/${userid}`)
   .then(res => res.json())
   .then((res) => {
       dispatch(fetchFoldersSuccess(res));
@@ -25,4 +36,58 @@ export const fetchFolders = () => dispatch => {
   .catch((err)=> {
       dispatch(fetchFoldersError(err));
   })
+}
+
+export const createFolders = (userid, postInfo) => dispatch => {
+  dispatch(fetchFoldersRequest());
+  return fetch(`/api/folders`, {
+    method: 'post',
+    headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify(postInfo)
+  })
+  .then(() => {
+    return fetch(`/api/folders/${userid}`)})
+  .then(res => res.json())
+  .then((res) => {
+      dispatch(fetchFoldersSuccess(res));
+  })
+  .catch((err)=> {
+      dispatch(fetchFoldersError(err));
+  })    
+}
+
+export const deleteFolders = (userid, id) => dispatch => {
+  dispatch(fetchFoldersRequest());
+  return fetch(`/api/folders/${id}`, {method: 'delete'})
+  .then(res => fetch(`/api/folders/${userid}`))
+  .then(res => res.json())
+  .then((res) => {
+      dispatch(fetchFoldersSuccess(res));
+  })
+  .catch((err)=> {
+      dispatch(fetchFoldersError(err));
+  })
+}
+
+export const updateFolders = (userid, id, postInfo) => dispatch => {
+    dispatch(fetchFoldersRequest());
+    return fetch(`/api/folders/${id}`, {
+        method: 'PATCH', 
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify(postInfo)
+    })
+    .then(res => fetch(`/api/folders/${userid}`))
+    .then(res => res.json())
+    .then((res) => {
+        dispatch(fetchFoldersSuccess(res));
+    })
+    .catch((err)=> {
+        dispatch(fetchFoldersError(err));
+    })
 }

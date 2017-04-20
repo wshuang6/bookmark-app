@@ -126,7 +126,7 @@ app.delete('/api/:id', (req, res) => {
 
 app.get('/api/folders/:id', (req, res) => {
     knex('folders')
-        .select(['foldername', 'userid'])
+        .select(['foldername', 'userid', 'folderid'])
         .where('userid', req.params.id)
         .then(results => {
             res.json(results);
