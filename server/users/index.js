@@ -27,25 +27,35 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
     .then(_user => {
       console.log(_user);
       user = _user[0];
-      if (!user) {
-        return callback(null, false, {message: 'Incorrect username'});
+      if (_user.length < 1) {
+        callback(null, false, {message: 'Incorrect username'})
+        return Promise.reject({
+          status: 422,
+          message: 'Incorrect username'
+        });
       }
+      console.log('1.5')
       return validatePassword(password, user.password);
     })
     .then(isValid => {
       if (!isValid) {
+        console.log('2')
         return callback(null, false, {message: 'Incorrect password'});
       }
       else {
+        console.log('3')
         return callback(null, user)
       }
-    });
+    })
+    .catch(err => {
+      console.log('this an error')
+      console.log(err)})
 });
 
 passport.use(basicStrategy);
 router.use(passport.initialize());
 
-router.post('/api/users', (req, res) => {
+router.post('/', (req, res) => {
   if (!req.body) {
     return res.status(400).json({message: 'No request body'});
   }
@@ -85,13 +95,11 @@ router.post('/api/users', (req, res) => {
     .where('email', email)
     .then(results => {
       if (results[0].count > 0) {
-        console.log('Username was taken')
         return Promise.reject({
           status: 422,
           message: 'username already taken'
         });
       }
-      console.log('i tried to hash')
       return hashPassword(password)
     })
     .then(hash => {
@@ -115,12 +123,14 @@ router.post('/api/users', (req, res) => {
 
 });
 
-router.post(`/api/users/login`, passport.authenticate('basic', {session: false}), (req, res) => {
+router.post(`/login`, 
+  passport.authenticate('basic', {session: false}), 
+  (req, res) => {
     knex('users')
     .select(['userid', 'email'])
     .where('email', req.body.email)
     .then(results => {
-        res.json(results);
+        return res.json(results);
     })
     .catch((error) => {
         console.error('ERROR:', error.message || error);
@@ -130,4 +140,4 @@ router.post(`/api/users/login`, passport.authenticate('basic', {session: false})
 );
 
 
-module.exports = {router, };
+module.exports = {router};

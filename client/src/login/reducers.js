@@ -1,9 +1,10 @@
-import {SET_USER, TOGGLE_LOGGING_IN} from './actions';
+import {SET_USER, SET_ERROR, TOGGLE_LOGGING_IN} from './actions';
 const initialState = {
   loggingIn: false,
   authenticated: false,
   email: null,
-  userid: null
+  userid: null,
+  error: null
 };
 
 export default (state=initialState, action) => {
@@ -13,12 +14,19 @@ export default (state=initialState, action) => {
             authenticated: true,
             email: action.email,
             userid: action.userid,
+            error: null
         }
     }
     if(action.type===TOGGLE_LOGGING_IN) {
         return {
             ...state,
             loggingIn: action.loggingIn
+        }
+    }
+    if (action.type===SET_ERROR) {
+        return {
+            ...state,
+            error: action.error.message
         }
     }
     return state;

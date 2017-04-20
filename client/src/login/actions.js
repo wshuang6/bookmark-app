@@ -2,7 +2,13 @@ export const SET_USER = 'SET_USER';
 export const setUser = (user) => ({
     type: SET_USER,
     email: user.email,
-    userid: user.userid
+    userid: user.userid, 
+})
+
+export const SET_ERROR = 'SET_ERROR';
+const setError = (error) => ({
+    type: SET_ERROR,
+    error
 })
 
 export const TOGGLE_LOGGING_IN = 'TOGGLE_LOGGING_IN';
@@ -20,18 +26,17 @@ export const createUser = (userInfo) => dispatch => {
     body: JSON.stringify(userInfo)
   })
   .then(res => {
-      if (!res.ok) {
-                        console.log(res)
-                        console.log(res.headers)
-          if (res.headers.get('Content-Type').includes('application/json')) {
-
-              console.log(res.json())
-            return Promise.reject(res.json())
-          }
-          console.log('not a JSON error')
-          return Promise.reject({message: res.statusText})
-      }
-      return res.json()
+    if (!res.ok) {
+        if (res.headers.get('Content-Type').includes('application/json')) {
+            return res.json()
+            .then(res => {
+                dispatch(setError(res))
+                return Promise.reject(res)
+            })
+        }
+        return Promise.reject({message: res.statusText})
+    }
+    return res.json()
   })
   .then(res => {
       console.log(res)
@@ -52,7 +57,20 @@ export const validateUser = (userInfo) => dispatch => {
         }, 
         body: JSON.stringify(userInfo)
     })
-    .then(res => res.json())
+    .then(res => {
+        if (!res.ok) {
+            console.log(res)
+            console.log(res.headers)
+        //     if (res.headers.get('Content-Type').includes('application/json')) {
+        //     return res.json()
+        //     .then(res => {
+        //         return Promise.reject(res)
+        //     })
+        // }
+        return Promise.reject({message: res.statusText})
+    }
+        return res.json()
+    })
     .then(res => {
         console.log(res[0])
         dispatch(setUser(res[0]))

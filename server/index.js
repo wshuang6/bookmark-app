@@ -11,15 +11,15 @@ const {router: usersRouter} = require('./users');
 
 // API endpoints go here!
 
-app.use('/', usersRouter);
+app.use('/api/users/', usersRouter);
 
-app.get('/api/users', (req, res) => {
-    knex('users')
-        .select()
-        .then(results => {
-            res.json(results);
-        })
-})
+// app.get('/api/users', (req, res) => {
+//     knex('users')
+//         .select()
+//         .then(results => {
+//             res.json(results);
+//         })
+// })
 
 // FOLDERS GET ENDPOINTS
 
