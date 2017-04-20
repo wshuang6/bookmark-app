@@ -30,7 +30,7 @@ export const createUser = (userInfo) => dispatch => {
         if (res.headers.get('Content-Type').includes('application/json')) {
             return res.json()
             .then(res => {
-                dispatch(setError(res))
+                dispatch(setError(res.message))
                 return Promise.reject(res)
             })
         }
@@ -76,6 +76,6 @@ export const validateUser = (userInfo) => dispatch => {
         dispatch(setUser(res[0]))
     })
     .catch((err)=> {
-        console.log(err);
+        dispatch(setError(err.message));
     })
 }

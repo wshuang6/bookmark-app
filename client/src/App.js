@@ -3,16 +3,17 @@ import Bookmarks from './bookmarks';
 import Folders from './folders';
 import Users from './users';
 import Login from './login';
+import Nav from './nav';
 
 export default class Components extends React.Component {
   render () {
-    let render
     return (
       <div>
-        <Login />
-        {/*<Users />
+        <Nav />
+        {/*<Login />*/}
+        <Users />
         <Bookmarks />
-        <Folders />*/}
+        <Folders />
       </div>
     )
   }
