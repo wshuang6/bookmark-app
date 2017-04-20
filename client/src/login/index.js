@@ -16,8 +16,6 @@ export class Login extends React.Component {
     localStorage.setItem('email', e.target.email.value);
     localStorage.setItem('password', e.target.password.value);
     const user = {email: localStorage.getItem('email'), password: localStorage.getItem('password')}
-    console.log(user);
-    console.log(`Basic ${user.email}:${user.password}`)
     this.props.dispatch(validateUser(user));
   }
   createUser(e) {
@@ -32,6 +30,10 @@ export class Login extends React.Component {
   }
   render () {
     // if (loggedin) {return Redirect component from Router}
+    let errorMessage;
+    if (this.props.error) {
+      errorMessage = `Error: ${this.props.error}`
+    }
     const formFiller = (
       <div>
         <label htmlFor="email">Email</label>
@@ -39,7 +41,10 @@ export class Login extends React.Component {
         <label htmlFor="password">Password</label>
         <input type="password" placeholder="1234passw0rd" name="password" id="password" required />
         <button type="submit">Submit</button>
+        <p>{errorMessage}</p>
       </div>)
+
+      //REFACTOR TO NO LONGER BE AN IFFE
     const renderLogIn = (() => {
       if (this.props.loggingIn) {
         return (
@@ -67,7 +72,8 @@ export class Login extends React.Component {
 }
 
 const mapStateToProps = (state)  => ({
-  loggingIn: state.login.loggingIn
+  loggingIn: state.login.loggingIn,
+  error: state.login.error
 })
 
 export default connect(mapStateToProps)(Login);

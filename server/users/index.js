@@ -25,7 +25,6 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
     .select()
     .where('email', username)
     .then(_user => {
-      console.log(_user);
       user = _user[0];
       if (_user.length < 1) {
         callback(null, false, {message: 'Incorrect username'})
@@ -34,21 +33,17 @@ const basicStrategy = new BasicStrategy((username, password, callback) => {
           message: 'Incorrect username'
         });
       }
-      console.log('1.5')
       return validatePassword(password, user.password);
     })
     .then(isValid => {
       if (!isValid) {
-        console.log('2')
         return callback(null, false, {message: 'Incorrect password'});
       }
       else {
-        console.log('3')
         return callback(null, user)
       }
     })
     .catch(err => {
-      console.log('this an error')
       console.log(err)})
 });
 
@@ -97,7 +92,7 @@ router.post('/', (req, res) => {
       if (results[0].count > 0) {
         return Promise.reject({
           status: 422,
-          message: 'username already taken'
+          message: 'You have already signed up with that email'
         });
       }
       return hashPassword(password)
@@ -123,8 +118,7 @@ router.post('/', (req, res) => {
 
 });
 
-router.post(`/login`, 
-  passport.authenticate('basic', {session: false}), 
+router.post(`/login`, passport.authenticate('basic', {session: false}), 
   (req, res) => {
     knex('users')
     .select(['userid', 'email'])

@@ -13,8 +13,8 @@ export class Folders extends React.Component {
     }
     // let folderList = this.props.folders.filter((folder) => {return folder.folderid == this.props.currentFolderId})
     let folderList = this.props.folders.map((folder) => {
-      return (<li onClick={() => this.props.dispatch(currentFolder(folder.folderid))} key={folder.folderid}>
-      <a href='#'>{folder.foldername}</a>
+      return (<li key={folder.folderid}>
+      <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>{folder.foldername}</a>
       <button onClick={() => {this.editFolder(folder)}}>Edit</button>
       <button onClick={() => {this.deleteFolder(folder.folderid)}}>Delete</button></li>)
     });
@@ -46,7 +46,7 @@ export class Folders extends React.Component {
           <a href="#" onClick={e => this.toggleAddFolder(e)}>
               Add Folder
           </a>
-          <li onClick={() => this.props.dispatch(currentFolder(null))}><a href='#'>Unorganized PageMarks</a></li>
+          <li><a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>Unorganized PageMarks</a></li>
           {this.renderResults()}
         </ul>
       </div>
