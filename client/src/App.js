@@ -9,10 +9,10 @@ export default class Components extends React.Component {
     let render
     return (
       <div>
-        <Login />
-        {/*<Users />
+        {/*<Login />*/}
+        <Users />
         <Bookmarks />
-        <Folders />*/}
+        <Folders />
       </div>
     )
   }

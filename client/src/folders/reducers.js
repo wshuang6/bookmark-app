@@ -1,4 +1,4 @@
-import {FETCH_FOLDERS_REQUEST, FETCH_FOLDERS_SUCCESS, FETCH_FOLDERS_ERROR, TOGGLE_ADD_FOLDER, EDIT_FOLDER} from './actions';
+import {FETCH_FOLDERS_REQUEST, FETCH_FOLDERS_SUCCESS, FETCH_FOLDERS_ERROR, TOGGLE_ADD_FOLDER, EDIT_FOLDER, CURRENT_FOLDER} from './actions';
 const initialState = {
     folders: [],
     loading: false,
@@ -9,6 +9,12 @@ const initialState = {
 };
 
 export default (state=initialState, action) => {
+    if(action.type === CURRENT_FOLDER) {
+        return {
+            ...state,
+            currentFolderId: action.currentFolderId
+        }
+    }
     if(action.type === TOGGLE_ADD_FOLDER) {
         return {
             ...state,

@@ -11,7 +11,6 @@ export class FolderModal extends React.Component {
     }
     postFolder(e) {
         e.preventDefault();
-        console.log(e.target.foldername.value);
         const postBody = {
             foldername: e.target.foldername.value,
             userid: this.props.userid
@@ -25,12 +24,10 @@ export class FolderModal extends React.Component {
         this.props.dispatch(editFolder(false));
         if (this.props.toggleAdd) {this.props.dispatch(toggleAddFolder());}
     }
-
     render() {
-        const editValues = (() => {
-            if (this.props.editing) {return this.props.editing};
-            return "";
-        })();
+        let editValues;
+        if (this.props.editing) {editValues = this.props.editing}
+        else {editValues = ""}
         return (
             <div className="overlay" id="modal">
               <form onSubmit={(e) => this.postFolder(e)}>

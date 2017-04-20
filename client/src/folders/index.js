@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchFolders, toggleAddFolder, editFolder, deleteFolders} from './actions';
+import {fetchFolders, toggleAddFolder, editFolder, deleteFolders, currentFolder} from './actions';
 import FolderModal from './folder-modal';
 
 export class Folders extends React.Component {
   renderResults() {
-    console.log(this.props.folders);
     if(this.props.loading) {
       return <li>Loading</li>;
     }
@@ -14,7 +13,7 @@ export class Folders extends React.Component {
     }
     // let folderList = this.props.folders.filter((folder) => {return folder.folderid == this.props.currentFolderId})
     let folderList = this.props.folders.map((folder) => {
-      return (<li key={folder.folderid}>
+      return (<li onClick={() => this.props.dispatch(currentFolder(folder.folderid))} key={folder.folderid}>
       <a href='#'>{folder.foldername}</a>
       <button onClick={() => {this.editFolder(folder)}}>Edit</button>
       <button onClick={() => {this.deleteFolder(folder.folderid)}}>Delete</button></li>)
@@ -47,6 +46,7 @@ export class Folders extends React.Component {
           <a href="#" onClick={e => this.toggleAddFolder(e)}>
               Add Folder
           </a>
+          <li onClick={() => this.props.dispatch(currentFolder(null))}><a href='#'>Unorganized PageMarks</a></li>
           {this.renderResults()}
         </ul>
       </div>

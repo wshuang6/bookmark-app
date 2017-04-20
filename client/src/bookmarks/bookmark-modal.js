@@ -11,7 +11,6 @@ export class BookmarkModal extends React.Component {
     }
     postBookmark(e) {
         e.preventDefault();
-        console.log(e.target.folderid.value)
         const postBody = {
             url: e.target.url.value,
             title: e.target.title.value,
@@ -31,9 +30,7 @@ export class BookmarkModal extends React.Component {
         this.props.dispatch(editBookmark(false));
         if (this.props.toggleAdd) {this.props.dispatch(toggleAddBookmark());}
     }
-
-
-
+    
     render() {
         const editValues = (() => {
             if (this.props.editing) {return this.props.editing};
@@ -67,8 +64,7 @@ export class BookmarkModal extends React.Component {
                 </p>
                 <p>Place in Folder
                     <select name="folderid">
-                        {console.log(editValues)}
-                        <option></option>
+                        <option>Unorganized PageMarks</option>
                         {folderSelect}
                     </select>
                 </p>

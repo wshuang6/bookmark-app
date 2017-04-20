@@ -26,6 +26,12 @@ export const editFolder = (editing) => ({
     editing
 });
 
+export const CURRENT_FOLDER = 'CURRENT_FOLDER';
+export const currentFolder = (currentFolderId) => ({
+    type: CURRENT_FOLDER,
+    currentFolderId
+})
+
 export const fetchFolders = userid => dispatch => {
   dispatch(fetchFoldersRequest());
   return fetch(`/api/folders/${userid}`)
