@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import './index.css';
 
-import {toggleAddFolder, createFolders, editFolder, updateFolders} from './actions';
+import {toggleAddFolder, createFolders, editFolder, updateFolders} from '../actions';
 
 export class FolderModal extends React.Component {
     hide(event) {

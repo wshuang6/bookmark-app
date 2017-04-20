@@ -10,7 +10,7 @@ export default class Components extends React.Component {
     return (
       <div>
         <Nav />
-        {/*<Login />*/}
+        <Login />
         <Users />
         <Bookmarks />
         <Folders />

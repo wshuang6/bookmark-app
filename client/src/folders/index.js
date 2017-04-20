@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchFolders, toggleAddFolder, editFolder, deleteFolders, currentFolder} from './actions';
-import FolderModal from './folder-modal';
+import FolderModal from './folder-modal/';
+import './index.css';
 
 export class Folders extends React.Component {
   renderResults() {

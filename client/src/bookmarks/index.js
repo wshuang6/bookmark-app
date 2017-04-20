@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {fetchBookmarks, toggleAddBookmark, editBookmark, deleteBookmarks} from './actions';
-import BookmarkModal from './bookmark-modal';
+import BookmarkModal from './bookmark-modal/';
+import './index.css';
 
 export class Bookmarks extends React.Component {
   renderResults() {
@@ -18,7 +19,7 @@ export class Bookmarks extends React.Component {
         return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
       })();
       return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" />
-      <a href={bookmark.url}>{bookmark.title}</a> - {bookmark.notes}
+      <a href={bookmark.url} target="_blank">{bookmark.title}</a> - {bookmark.notes}
       <button onClick={() => {this.editBookmark(bookmark)}}>Edit</button>
       <button onClick={() => {this.deleteBookmark(bookmark.bookmarkid)}}>Delete</button></li>)
     });

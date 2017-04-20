@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {toggleLoggingIn, createUser, validateUser} from './actions';
+import './index.css';
 
 export class Login extends React.Component {
   loggingIn(e) {
