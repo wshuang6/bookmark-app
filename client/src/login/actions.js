@@ -22,7 +22,8 @@ export const createUser = (userInfo) => dispatch => {
   .then(res => {
       if (!res.ok) {
                         console.log(res)
-          if (res.headers.get('Content-Type') === 'application/json') {
+                        console.log(res.headers)
+          if (res.headers.get('Content-Type').includes('application/json')) {
 
               console.log(res.json())
             return Promise.reject(res.json())
