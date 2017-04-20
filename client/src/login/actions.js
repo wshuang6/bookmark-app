@@ -19,9 +19,21 @@ export const createUser = (userInfo) => dispatch => {
     }, 
     body: JSON.stringify(userInfo)
   })
-  .then(res => res.json())
   .then(res => {
-      console.log(res[0])
+      if (!res.ok) {
+                        console.log(res)
+          if (res.headers.get('Content-Type') === 'application/json') {
+
+              console.log(res.json())
+            return Promise.reject(res.json())
+          }
+          console.log('not a JSON error')
+          return Promise.reject({message: res.statusText})
+      }
+      return res.json()
+  })
+  .then(res => {
+      console.log(res)
       dispatch(setUser(res[0]))
   })
   .catch((err)=> {

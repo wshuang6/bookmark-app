@@ -85,9 +85,13 @@ router.post('/api/users', (req, res) => {
     .where('email', email)
     .then(results => {
       if (results[0].count > 0) {
-        console.log('username taken!!!')
-        return res.status(422).json({message: 'username already taken'});
+        console.log('Username was taken')
+        return Promise.reject({
+          status: 422,
+          message: 'username already taken'
+        });
       }
+      console.log('i tried to hash')
       return hashPassword(password)
     })
     .then(hash => {
@@ -102,8 +106,13 @@ router.post('/api/users', (req, res) => {
       })
     })
     .catch(err => {
-      res.status(500).json({message: 'Internal server error'})
-    });
+      console.log(err)
+      if (err.status) {
+        return res.status(err.status).json({message: err.message});
+      }
+      res.status(500).json({message: 'Internal server error'});
+    })
+
 });
 
 router.post(`/api/users/login`, passport.authenticate('basic', {session: false}), (req, res) => {

@@ -31,6 +31,7 @@ export class Login extends React.Component {
     this.props.dispatch(createUser(user));
   }
   render () {
+    // if (loggedin) {return Redirect component from Router}
     const formFiller = (
       <div>
         <label htmlFor="email">Email</label>
