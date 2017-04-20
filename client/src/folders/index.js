@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchFolders} from './actions';
-import NewFolder from './create-folder';
+import {fetchFolders, toggleAddFolder, editFolder, deleteFolders} from './actions';
+import FolderModal from './folder-modal';
 
 export class Folders extends React.Component {
   renderResults() {
@@ -12,20 +12,41 @@ export class Folders extends React.Component {
     if(this.props.error) {
       return <li>Error</li>;
     }
-    const folderList = this.props.folders.map((folder, i) => {
-      return (<li key={folder.folderid}>{folder.foldername}</li>)
+    // let folderList = this.props.folders.filter((folder) => {return folder.folderid == this.props.currentFolderId})
+    let folderList = this.props.folders.map((folder) => {
+      return (<li key={folder.folderid}>
+      <a href='#'>{folder.foldername}</a>
+      <button onClick={() => {this.editFolder(folder)}}>Edit</button>
+      <button onClick={() => {this.deleteFolder(folder.folderid)}}>Delete</button></li>)
     });
     return (folderList)
   }
-
+  deleteFolder(folderid) {
+    this.props.dispatch(deleteFolders(this.props.userid, folderid))
+  }
+  toggleAddFolder(event) {
+    event.preventDefault();
+    this.props.dispatch(toggleAddFolder());
+  }
+  editFolder(folder) {
+    event.preventDefault();
+    this.props.dispatch(editFolder(folder));
+  }
   componentDidMount() {
-    this.props.dispatch(fetchFolders());
+    this.props.dispatch(fetchFolders(this.props.userid));
   }
   render () {
+    let folderModal;
+    if (this.props.toggleAdd || this.props.editing) {
+        folderModal = <FolderModal />;
+    }
     return (
       <div>
-        <NewFolder onClick={() => this.duhFolder()}/>
         <ul>
+          {folderModal}
+          <a href="#" onClick={e => this.toggleAddFolder(e)}>
+              Add Folder
+          </a>
           {this.renderResults()}
         </ul>
       </div>
@@ -38,6 +59,8 @@ const mapStateToProps = (state)  => ({
   loading: state.folders.loading, 
   error: state.folders.error,
   userid: state.users.userid,
+  toggleAdd: state.folders.toggleAdd,
+  editing: state.folders.editing,
   currentFolderId: state.folders.currentFolderId
 })
 

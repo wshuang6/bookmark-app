@@ -11,12 +11,16 @@ export class BookmarkModal extends React.Component {
     }
     postBookmark(e) {
         e.preventDefault();
+        console.log(e.target.folderid.value)
         const postBody = {
             url: e.target.url.value,
             title: e.target.title.value,
             image: e.target.image.value,
             notes: e.target.notes.value,
             userid: this.props.userid
+        }
+        if (e.target.folderid.value) {
+            postBody.folderid = e.target.folderid.value
         }
         if (this.props.toggleAdd) {
             this.props.dispatch(createBookmarks(this.props.userid, postBody))
@@ -28,11 +32,16 @@ export class BookmarkModal extends React.Component {
         if (this.props.toggleAdd) {this.props.dispatch(toggleAddBookmark());}
     }
 
+
+
     render() {
         const editValues = (() => {
             if (this.props.editing) {return this.props.editing};
             return "";
         })();
+        const folderSelect = this.props.folders.map((folder) => {
+            return (<option value={folder.folderid}>{folder.foldername}</option>)
+        })
         return (
             <div className="overlay" id="modal">
               <form onSubmit={(e) => this.postBookmark(e)}>
@@ -56,6 +65,13 @@ export class BookmarkModal extends React.Component {
                     className="text" autoComplete="off"
                     placeholder="Image URL" defaultValue={editValues.image} />
                 </p>
+                <p>Place in Folder
+                    <select name="folderid">
+                        {console.log(editValues)}
+                        <option></option>
+                        {folderSelect}
+                    </select>
+                </p>
                 <input type="submit" id="guessButton" className="button" name="submit" value="Submit" />
               </form>
               <a className="close" href="#" onClick={e => this.hide(e)}>Never mind</a>
@@ -68,5 +84,6 @@ const mapStateToProps = (state) => ({
     userid: state.users.userid,
     editing: state.bookmarks.editing,
     toggleAdd: state.bookmarks.toggleAdd,
+    folders: state.folders.folders
 })
 export default connect(mapStateToProps)(BookmarkModal);
