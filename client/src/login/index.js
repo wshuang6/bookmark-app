@@ -39,7 +39,7 @@ export class Login extends React.Component {
       errorMessage = `Error: ${this.props.error}`
     }
     const formFiller = (
-      <div class="mainlogin">
+      <div className="mainlogin">
         <label htmlFor="email">Email<br /></label>
         <input type="email" placeholder="foo@bar.com" name="email" id="email" required />
         <br /><br />

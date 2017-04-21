@@ -29,7 +29,6 @@ export class Components extends React.Component {
             }
           }} />
           <Route exact path="/login" component={Login} />
-
           <Route exact path="/bookmarks" component={Users} />
           <Route exact path="/bookmarks" component={Bookmarks} />
           <Route exact path="/bookmarks" component={Folders} />
