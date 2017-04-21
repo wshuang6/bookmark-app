@@ -31,6 +31,7 @@ export class Login extends React.Component {
     this.props.dispatch(createUser(user));
   }
   render () {
+    console.log(this.props.userid)
     if (this.props.email && this.props.userid && !this.props.error) {
       return (<Redirect to="/bookmarks" />)
     }
@@ -48,7 +49,8 @@ export class Login extends React.Component {
         <br />
         <button type="submit">Submit<br /></button>
         <p>{errorMessage}</p>
-      </div>)
+      </div>
+      )
 
       //TO-DO REFACTOR TO NO LONGER BE AN IFFE. ALSO REFACTOR BECAUSE ALL YOU NEED ARE THE WORDS
     const renderLogIn = (() => {

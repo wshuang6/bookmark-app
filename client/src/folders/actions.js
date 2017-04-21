@@ -3,6 +3,12 @@ const fetchFoldersRequest = () => ({
     type: FETCH_FOLDERS_REQUEST
 });
 
+export const SEARCH_BOOKMARKS = 'SEARCH_BOOKMARKS';
+export const searchBookmarks = (results) => ({
+    type: SEARCH_BOOKMARKS,
+    results
+});
+
 export const FETCH_FOLDERS_SUCCESS = 'FETCH_FOLDERS_SUCCESS';
 const fetchFoldersSuccess = (folders) => ({
     type: FETCH_FOLDERS_SUCCESS,

@@ -15,6 +15,11 @@ const setError = (error) => ({
     type: SET_ERROR,
     error
 })
+export const SEARCH_BOOKMARKS = 'SEARCH_BOOKMARKS';
+export const searchBookmarks = (results) => ({
+    type: SEARCH_BOOKMARKS,
+    results
+})
 
 export const TOGGLE_LOGGING_IN = 'TOGGLE_LOGGING_IN';
 export const toggleLoggingIn = (loggingIn) => ({
