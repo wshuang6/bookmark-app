@@ -46,7 +46,7 @@ export class FolderModal extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    userid: state.users.userid,
+    userid: state.login.userid,
     editing: state.folders.editing,
     toggleAdd: state.folders.toggleAdd,
 })

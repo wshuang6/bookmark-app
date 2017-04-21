@@ -1,7 +1,6 @@
 import React from 'react';
 import Bookmarks from './bookmarks';
 import Folders from './folders';
-import Users from './users';
 import Login from './login';
 import Nav from './nav';
 import {connect} from 'react-redux';
@@ -29,7 +28,6 @@ export class Components extends React.Component {
             }
           }} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/bookmarks" component={Users} />
           <Route exact path="/bookmarks" component={Bookmarks} />
           <Route exact path="/bookmarks" component={Folders} />
         </div>

@@ -65,7 +65,7 @@ const mapStateToProps = (state)  => ({
   bookmarks: state.bookmarks.bookmarks,
   loading: state.bookmarks.loading, 
   error: state.bookmarks.error,
-  userid: state.users.userid,
+  userid: state.login.userid,
   toggleAdd: state.bookmarks.toggleAdd,
   editing: state.bookmarks.editing,
   currentFolderId: state.folders.currentFolderId

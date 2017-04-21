@@ -82,7 +82,7 @@ export class BookmarkModal extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    userid: state.users.userid,
+    userid: state.login.userid,
     editing: state.bookmarks.editing,
     toggleAdd: state.bookmarks.toggleAdd,
     folders: state.folders.folders

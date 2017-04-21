@@ -58,7 +58,7 @@ const mapStateToProps = (state)  => ({
   folders: state.folders.folders,
   loading: state.folders.loading, 
   error: state.folders.error,
-  userid: state.users.userid,
+  userid: state.login.userid,
   toggleAdd: state.folders.toggleAdd,
   editing: state.folders.editing,
   currentFolderId: state.folders.currentFolderId
