@@ -5,6 +5,11 @@ export const setUser = (user) => ({
     userid: user.userid, 
 })
 
+export const REMOVE_USER = 'REMOVE_USER';
+export const removeUser = () => ({
+    type: REMOVE_USER
+})
+
 export const SET_ERROR = 'SET_ERROR';
 const setError = (error) => ({
     type: SET_ERROR,
@@ -39,8 +44,9 @@ export const createUser = (userInfo) => dispatch => {
     return res.json()
   })
   .then(res => {
-      console.log(res)
-      dispatch(setUser(res[0]))
+    localStorage.setItem('email', userInfo.email);
+    localStorage.setItem('password', userInfo.password);
+    dispatch(setUser(res[0]))
   })
   .catch((err)=> {
       console.log(err);
@@ -59,20 +65,13 @@ export const validateUser = (userInfo) => dispatch => {
     })
     .then(res => {
         if (!res.ok) {
-            console.log(res)
-            console.log(res.headers)
-        //     if (res.headers.get('Content-Type').includes('application/json')) {
-        //     return res.json()
-        //     .then(res => {
-        //         return Promise.reject(res)
-        //     })
-        // }
         return Promise.reject({message: res.statusText})
     }
         return res.json()
     })
     .then(res => {
-        console.log(res[0])
+        localStorage.setItem('email', userInfo.email);
+        localStorage.setItem('password', userInfo.password);
         dispatch(setUser(res[0]))
     })
     .catch((err)=> {

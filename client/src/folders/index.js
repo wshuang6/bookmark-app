@@ -11,7 +11,6 @@ export class Folders extends React.Component {
     if(this.props.error) {
       return <li>Error</li>;
     }
-    // let folderList = this.props.folders.filter((folder) => {return folder.folderid == this.props.currentFolderId})
     let folderList = this.props.folders.map((folder) => {
       return (<li key={folder.folderid}>
       <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>{folder.foldername}</a>
