@@ -36,12 +36,14 @@ export class Login extends React.Component {
       errorMessage = `Error: ${this.props.error}`
     }
     const formFiller = (
-      <div>
-        <label htmlFor="email">Email</label>
+      <div class="mainlogin">
+        <label htmlFor="email">Email<br /></label>
         <input type="email" placeholder="foo@bar.com" name="email" id="email" required />
-        <label htmlFor="password">Password</label>
+        <br /><br />
+        <label htmlFor="password">Password<br /></label>
         <input type="password" placeholder="1234passw0rd" name="password" id="password" required />
-        <button type="submit">Submit</button>
+        <br />
+        <button type="submit">Submit<br /></button>
         <p>{errorMessage}</p>
       </div>)
 

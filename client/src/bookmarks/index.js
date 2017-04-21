@@ -18,7 +18,7 @@ export class Bookmarks extends React.Component {
         if (bookmark.image) {return bookmark.image}
         return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
       })();
-      return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" />
+      return (<li className="bookmarkli" key={bookmark.bookmarkid}><img src={imageURL} alt="" />
       <a href={bookmark.url} target="_blank">{bookmark.title}</a> - {bookmark.notes}
       <button onClick={() => {this.editBookmark(bookmark)}}>Edit</button>
       <button onClick={() => {this.deleteBookmark(bookmark.bookmarkid)}}>Delete</button></li>)
@@ -45,8 +45,8 @@ export class Bookmarks extends React.Component {
         bookmarkModal = <BookmarkModal />;
     }
     return (
-      <div>
-        <ul>
+      <div className="bookmarkdiv">
+        <ul className="bookmarkul">
           {bookmarkModal}
           <a href="#" onClick={e => this.toggleAddBookmark(e)}>
               Add bookmark

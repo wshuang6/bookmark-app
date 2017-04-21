@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+  display: inline-block;
+}
+
+Nav {
+  background-color: #376842;
+}
+.App-logo {
+  height: 100px;
+  padding: 20px;
+}
+
+.App-header {
+  background-color: #376842;
+  width: 100%;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+}
+
+div {
+  padding: 0;
+}
