@@ -1,14 +1,21 @@
-import {FETCH_FOLDERS_REQUEST, FETCH_FOLDERS_SUCCESS, FETCH_FOLDERS_ERROR, TOGGLE_ADD_FOLDER, EDIT_FOLDER, CURRENT_FOLDER} from './actions';
+import {FETCH_FOLDERS_REQUEST, FETCH_FOLDERS_SUCCESS, FETCH_FOLDERS_ERROR, TOGGLE_ADD_FOLDER, EDIT_FOLDER, CURRENT_FOLDER, SEARCH_BOOKMARKS} from './actions';
 const initialState = {
     folders: [],
     loading: false,
     error: null,
     toggleAdd: false,
     editing: false,
-    currentFolderId: null
+    currentFolderId: null,
+    results: []
 };
 
 export default (state=initialState, action) => {
+    if(action.type === SEARCH_BOOKMARKS) {
+        return {
+            ...state,
+            results: action.results,
+        }
+    }
     if(action.type === CURRENT_FOLDER) {
         return {
             ...state,

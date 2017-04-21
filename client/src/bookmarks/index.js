@@ -59,7 +59,7 @@ export class Bookmarks extends React.Component {
       </div>
     )
   }
-}
+} 
 
 const mapStateToProps = (state)  => ({
   bookmarks: state.bookmarks.bookmarks,
