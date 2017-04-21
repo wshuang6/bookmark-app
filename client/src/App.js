@@ -4,21 +4,45 @@ import Folders from './folders';
 import Users from './users';
 import Login from './login';
 import Nav from './nav';
-// import './App.css';
+import {connect} from 'react-redux';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {validateUser} from './login/actions';
 
-export default class Components extends React.Component {
+export class Components extends React.Component {
   render () {
-    return (
-      <div>
-        <Nav />
-        <Login />
-        <Users />
-        <Bookmarks />
-        <Folders />
-      </div>
+      return (
+      <Router>
+        <div>
+          <Nav />
+          <Route exact path="/" render={() => {
+            const user = {
+              email: localStorage.getItem('email'), 
+              password: localStorage.getItem('password')
+            }
+            if (user.email && user.password) {
+              console.log('login attempted to validate existing creds')
+              this.props.dispatch(validateUser(user))
+              return (<Redirect to="/bookmarks"/>)
+            }
+            else {
+              return (<Redirect to="/login"/>)
+            }
+          }} />
+          <Route exact path="/login" component={Login} />
+
+          <Route exact path="/bookmarks" component={Users} />
+          <Route exact path="/bookmarks" component={Bookmarks} />
+          <Route exact path="/bookmarks" component={Folders} />
+        </div>
+      </Router>
     )
   }
 }
 
-// router, /login goes to login, / goes to main page
-// in login, have certain conditions in state. if logged in, redirect to slash
+const mapStateToProps = (state) => ({
+  email: state.login.email,
+  error: state.login.error,
+  userid: state.login.userid,
+})
+
+export default connect(mapStateToProps)(Components);

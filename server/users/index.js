@@ -115,7 +115,6 @@ router.post('/', (req, res) => {
       }
       res.status(500).json({message: 'Internal server error'});
     })
-
 });
 
 router.post(`/login`, passport.authenticate('basic', {session: false}), 

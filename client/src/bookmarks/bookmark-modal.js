@@ -12,15 +12,19 @@ export class BookmarkModal extends React.Component {
     }
     postBookmark(e) {
         e.preventDefault();
-        const postBody = {
+        let postBody = {
             url: e.target.url.value,
             title: e.target.title.value,
             image: e.target.image.value,
             notes: e.target.notes.value,
-            userid: this.props.userid
+            userid: this.props.userid,
+            folderid: e.target.folderid.value
         }
-        if (e.target.folderid.value) {
-            postBody.folderid = e.target.folderid.value
+        if (postBody.folderid === "default") {
+            postBody.folderid = null
+        }
+        if (!postBody.url.toLowerCase().includes('http://')) {
+            postBody.url = `http://${postBody.url}`
         }
         if (this.props.toggleAdd) {
             this.props.dispatch(createBookmarks(this.props.userid, postBody))
@@ -65,7 +69,7 @@ export class BookmarkModal extends React.Component {
                 </p>
                 <p>Place in Folder
                     <select name="folderid">
-                        <option>Unorganized PageMarks</option>
+                        <option value="default">Unorganized PageMarks</option>
                         {folderSelect}
                     </select>
                 </p>
