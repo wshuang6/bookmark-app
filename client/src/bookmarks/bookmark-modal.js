@@ -16,10 +16,11 @@ export class BookmarkModal extends React.Component {
             title: e.target.title.value,
             image: e.target.image.value,
             notes: e.target.notes.value,
-            userid: this.props.userid
+            userid: this.props.userid,
+            folderid: e.target.folderid.value
         }
-        if (e.target.folderid.value) {
-            postBody.folderid = e.target.folderid.value
+        if (e.target.folderid.value === "default") {
+            postBody.folderid = null
         }
         if (this.props.toggleAdd) {
             this.props.dispatch(createBookmarks(this.props.userid, postBody))
@@ -64,7 +65,7 @@ export class BookmarkModal extends React.Component {
                 </p>
                 <p>Place in Folder
                     <select name="folderid">
-                        <option>Unorganized PageMarks</option>
+                        <option value="default">Unorganized PageMarks</option>
                         {folderSelect}
                     </select>
                 </p>

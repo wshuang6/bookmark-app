@@ -39,7 +39,6 @@ export const createUser = (userInfo) => dispatch => {
     return res.json()
   })
   .then(res => {
-      console.log(res)
       dispatch(setUser(res[0]))
   })
   .catch((err)=> {
@@ -59,20 +58,11 @@ export const validateUser = (userInfo) => dispatch => {
     })
     .then(res => {
         if (!res.ok) {
-            console.log(res)
-            console.log(res.headers)
-        //     if (res.headers.get('Content-Type').includes('application/json')) {
-        //     return res.json()
-        //     .then(res => {
-        //         return Promise.reject(res)
-        //     })
-        // }
         return Promise.reject({message: res.statusText})
     }
         return res.json()
     })
     .then(res => {
-        console.log(res[0])
         dispatch(setUser(res[0]))
     })
     .catch((err)=> {

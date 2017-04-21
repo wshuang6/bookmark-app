@@ -3,6 +3,16 @@ import {connect} from 'react-redux';
 import {toggleLoggingIn, createUser, validateUser} from './actions';
 
 export class Login extends React.Component {
+  componentWillMount () {
+    const user = {
+      email: localStorage.getItem('email'), 
+      password: localStorage.getItem('password')
+    }    
+    if (user.email && user.password) {
+      console.log('login attempted to validate existing creds')
+      this.props.dispatch(validateUser(user))
+    }
+  }
   loggingIn(e) {
     e.preventDefault();
     this.props.dispatch(toggleLoggingIn(true));
@@ -15,9 +25,13 @@ export class Login extends React.Component {
     e.preventDefault();
     localStorage.setItem('email', e.target.email.value);
     localStorage.setItem('password', e.target.password.value);
-    const user = {email: localStorage.getItem('email'), password: localStorage.getItem('password')}
+    const user = {
+      email: localStorage.getItem('email'), 
+      password: localStorage.getItem('password')
+    }
     this.props.dispatch(validateUser(user));
   }
+  //TO-DO REFACTOR THIS PART. UNNECESSARY TO HAVE BOTH CHECKS.
   createUser(e) {
     e.preventDefault();
     localStorage.setItem('email', e.target.email.value);
@@ -29,7 +43,14 @@ export class Login extends React.Component {
     this.props.dispatch(createUser(user));
   }
   render () {
-    // if (loggedin) {return Redirect component from Router}
+    const user = {
+      email: localStorage.getItem('email'), 
+      password: localStorage.getItem('password')
+    }
+    if (this.props.email && this.props.userid && !this.props.error && user.email && user.password) {
+      console.log('login pushed endpoint to history')
+      this.props.history.push('/')
+    }    
     let errorMessage;
     if (this.props.error) {
       errorMessage = `Error: ${this.props.error}`
@@ -44,7 +65,7 @@ export class Login extends React.Component {
         <p>{errorMessage}</p>
       </div>)
 
-      //REFACTOR TO NO LONGER BE AN IFFE
+      //TO-DO REFACTOR TO NO LONGER BE AN IFFE. ALSO REFACTOR BECAUSE ALL YOU NEED ARE THE WORDS
     const renderLogIn = (() => {
       if (this.props.loggingIn) {
         return (
@@ -53,7 +74,7 @@ export class Login extends React.Component {
               <legend>Log in</legend>
               {formFiller}
             </fieldset>
-            <a onClick={(e) => this.signingUp(e)}>Signing up? Click here.</a>
+            <a href="#" onClick={(e) => this.signingUp(e)}>Signing up? Click here.</a>
           </form>)
       } else
       if (!this.props.loggingIn) {
@@ -63,7 +84,7 @@ export class Login extends React.Component {
               <legend>Sign up</legend>
               {formFiller}
             </fieldset>
-            <a onClick={(e) => this.loggingIn(e)}>Logging in? Click here.</a>
+            <a href="#" onClick={(e) => this.loggingIn(e)}>Logging in? Click here.</a>
           </form>)
       }
     })();
@@ -73,7 +94,9 @@ export class Login extends React.Component {
 
 const mapStateToProps = (state)  => ({
   loggingIn: state.login.loggingIn,
-  error: state.login.error
+  error: state.login.error, 
+  email: state.login.email,
+  userid: state.login.userid,
 })
 
 export default connect(mapStateToProps)(Login);
