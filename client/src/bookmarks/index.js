@@ -19,6 +19,7 @@ export class Bookmarks extends React.Component {
       })();
       let bookmarkURL;
       if (!bookmark.url.toLowerCase().includes('http://')) {bookmarkURL = `http://${bookmark.url}`}
+      else {bookmarkURL = bookmark.url}
       return (<li key={bookmark.bookmarkid}><img src={imageURL} alt="" />
       <a href={bookmarkURL}>{bookmark.title}</a> - {bookmark.notes}
       <button onClick={() => {this.editBookmark(bookmark)}}>Edit</button>

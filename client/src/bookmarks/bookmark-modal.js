@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 import {toggleAddBookmark, createBookmarks, editBookmark, updateBookmarks} from './actions';
 
 export class BookmarkModal extends React.Component {
@@ -11,7 +10,7 @@ export class BookmarkModal extends React.Component {
     }
     postBookmark(e) {
         e.preventDefault();
-        const postBody = {
+        let postBody = {
             url: e.target.url.value,
             title: e.target.title.value,
             image: e.target.image.value,
@@ -19,8 +18,11 @@ export class BookmarkModal extends React.Component {
             userid: this.props.userid,
             folderid: e.target.folderid.value
         }
-        if (e.target.folderid.value === "default") {
+        if (postBody.folderid === "default") {
             postBody.folderid = null
+        }
+        if (!postBody.url.toLowerCase().includes('http://')) {
+            postBody.url = `http://${postBody.url}`
         }
         if (this.props.toggleAdd) {
             this.props.dispatch(createBookmarks(this.props.userid, postBody))

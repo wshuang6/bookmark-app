@@ -1,18 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {toggleLoggingIn, createUser, validateUser} from './actions';
+// import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 export class Login extends React.Component {
-  componentWillMount () {
-    const user = {
-      email: localStorage.getItem('email'), 
-      password: localStorage.getItem('password')
-    }    
-    if (user.email && user.password) {
-      console.log('login attempted to validate existing creds')
-      this.props.dispatch(validateUser(user))
-    }
-  }
   loggingIn(e) {
     e.preventDefault();
     this.props.dispatch(toggleLoggingIn(true));
@@ -23,34 +15,25 @@ export class Login extends React.Component {
   }
   verifyLogIn(e) {
     e.preventDefault();
-    localStorage.setItem('email', e.target.email.value);
-    localStorage.setItem('password', e.target.password.value);
     const user = {
-      email: localStorage.getItem('email'), 
-      password: localStorage.getItem('password')
+      email: e.target.email.value, 
+      password: e.target.password.value
     }
     this.props.dispatch(validateUser(user));
   }
   //TO-DO REFACTOR THIS PART. UNNECESSARY TO HAVE BOTH CHECKS.
   createUser(e) {
     e.preventDefault();
-    localStorage.setItem('email', e.target.email.value);
-    localStorage.setItem('password', e.target.password.value);
     const user = {
-      email: localStorage.getItem('email'), 
-      password: localStorage.getItem('password')
+      email: e.target.email.value, 
+      password: e.target.password.value
     }
     this.props.dispatch(createUser(user));
   }
   render () {
-    const user = {
-      email: localStorage.getItem('email'), 
-      password: localStorage.getItem('password')
+    if (this.props.email && this.props.userid && !this.props.error) {
+      return (<Redirect to="/bookmarks" />)
     }
-    if (this.props.email && this.props.userid && !this.props.error && user.email && user.password) {
-      console.log('login pushed endpoint to history')
-      this.props.history.push('/')
-    }    
     let errorMessage;
     if (this.props.error) {
       errorMessage = `Error: ${this.props.error}`

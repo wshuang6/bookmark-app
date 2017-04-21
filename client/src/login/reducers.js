@@ -1,4 +1,4 @@
-import {SET_USER, SET_ERROR, TOGGLE_LOGGING_IN} from './actions';
+import {SET_USER, SET_ERROR, TOGGLE_LOGGING_IN, REMOVE_USER} from './actions';
 const initialState = {
   loggingIn: false,
   email: null,
@@ -7,6 +7,14 @@ const initialState = {
 };
 
 export default (state=initialState, action) => {
+    if(action.type === REMOVE_USER) {
+        return {
+            ...state,
+            email: null, 
+            userid: null,
+            error: null
+        }
+    }
     if(action.type === SET_USER) {
         return {
             ...state,

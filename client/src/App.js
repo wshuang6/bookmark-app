@@ -8,24 +8,33 @@ import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {validateUser} from './login/actions'
 
+
 export class Components extends React.Component {
   render () {
-    return (
+      return (
       <Router>
         <div>
           <Nav />
           <Route exact path="/" render={() => {
-            if (this.props.email && this.props.userid && !this.props.error && localStorage.getItem('email') && localStorage.getItem('password')) {
+            const user = {
+              email: localStorage.getItem('email'), 
+              password: localStorage.getItem('password')
+            }
+            if (user.email && user.password) {
+              console.log('login attempted to validate existing creds')
+              this.props.dispatch(validateUser(user))
               return (<Redirect to="/bookmarks"/>)
             }
             else {
-              return (<Redirect to="/login"/>)}
+              return (<Redirect to="/login"/>)
+            }
           }} />
           <Route exact path="/login" component={Login} />
+
           <Route exact path="/bookmarks" component={Users} />
           <Route exact path="/bookmarks" component={Bookmarks} />
           <Route exact path="/bookmarks" component={Folders} />
-          {/*<Login />
+            {/*<Login />
           <Users />
           <Bookmarks />
           <Folders />*/}

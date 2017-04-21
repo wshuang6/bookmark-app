@@ -5,6 +5,11 @@ export const setUser = (user) => ({
     userid: user.userid, 
 })
 
+export const REMOVE_USER = 'REMOVE_USER';
+export const removeUser = () => ({
+    type: REMOVE_USER
+})
+
 export const SET_ERROR = 'SET_ERROR';
 const setError = (error) => ({
     type: SET_ERROR,
@@ -39,7 +44,9 @@ export const createUser = (userInfo) => dispatch => {
     return res.json()
   })
   .then(res => {
-      dispatch(setUser(res[0]))
+    localStorage.setItem('email', userInfo.email);
+    localStorage.setItem('password', userInfo.password);
+    dispatch(setUser(res[0]))
   })
   .catch((err)=> {
       console.log(err);
@@ -63,6 +70,8 @@ export const validateUser = (userInfo) => dispatch => {
         return res.json()
     })
     .then(res => {
+        localStorage.setItem('email', userInfo.email);
+        localStorage.setItem('password', userInfo.password);
         dispatch(setUser(res[0]))
     })
     .catch((err)=> {
