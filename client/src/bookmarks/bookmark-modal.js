@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import './bookmark-modal.css';
+
 import {toggleAddBookmark, createBookmarks, editBookmark, updateBookmarks} from './actions';
 
 export class BookmarkModal extends React.Component {

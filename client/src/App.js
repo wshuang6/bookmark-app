@@ -6,8 +6,7 @@ import Login from './login';
 import Nav from './nav';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import {validateUser} from './login/actions'
-
+import {validateUser} from './login/actions';
 
 export class Components extends React.Component {
   render () {
@@ -34,10 +33,6 @@ export class Components extends React.Component {
           <Route exact path="/bookmarks" component={Users} />
           <Route exact path="/bookmarks" component={Bookmarks} />
           <Route exact path="/bookmarks" component={Folders} />
-            {/*<Login />
-          <Users />
-          <Bookmarks />
-          <Folders />*/}
         </div>
       </Router>
     )
