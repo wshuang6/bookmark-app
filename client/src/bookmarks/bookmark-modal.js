@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './index.css';
+import './bookmark-modal.css';
 
-import {toggleAddBookmark, createBookmarks, editBookmark, updateBookmarks} from '../actions';
+import {toggleAddBookmark, createBookmarks, editBookmark, updateBookmarks} from './actions';
 
 export class BookmarkModal extends React.Component {
     hide(event) {
