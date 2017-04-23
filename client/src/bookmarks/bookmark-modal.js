@@ -22,6 +22,8 @@ export class BookmarkModal extends React.Component {
         }
         if (postBody.folderid === "default") {
             postBody.folderid = null
+        } else {
+            postBody.folderid = parseInt(postBody.folderid, 10);
         }
         if (!postBody.url.toLowerCase().includes('http://')) {
             postBody.url = `http://${postBody.url}`
@@ -33,7 +35,9 @@ export class BookmarkModal extends React.Component {
             this.props.dispatch(updateBookmarks(this.props.userid, this.props.editing.bookmarkid, postBody))
         };
         this.props.dispatch(editBookmark(false));
-        if (this.props.toggleAdd) {this.props.dispatch(toggleAddBookmark());}
+        if (this.props.toggleAdd) {
+            this.props.dispatch(toggleAddBookmark());
+        }
     }
     
     render() {
@@ -42,37 +46,32 @@ export class BookmarkModal extends React.Component {
             return "";
         })();
         const folderSelect = this.props.folders.map((folder) => {
-            return (<option value={folder.folderid}>{folder.foldername}</option>)
+            return (<option key={folder.folderid} value={folder.folderid}>{folder.foldername}</option>)
         })
         return (
             <div className="overlay" id="modal">
               <form onSubmit={(e) => this.postBookmark(e)}>
-                <p>Bookmark URL 
+                <label htmlFor="url">Bookmark URL<br /></label> 
                     <input type="text" name="url" id="url"
                         className="text" autoComplete="off"
-                        placeholder="Bookmark URL" required defaultValue={editValues.url} />
-                </p>
-                <p>Bookmark name
+                        placeholder="Bookmark URL" required defaultValue={editValues.url} /><br />
+                <label htmlFor="title">Bookmark name<br /></label>
                     <input type="text" name="title" id="title"
                         className="text" autoComplete="off"
-                        placeholder="Bookmark name" required defaultValue={editValues.title} />
-                </p>
-                <p>Notes 
+                        placeholder="Bookmark name" required defaultValue={editValues.title} /><br />
+                <label htmlFor="notes">Notes<br /></label> 
                 <input type="text" name="notes" id="notes"
                     className="text" autoComplete="off"
-                    placeholder="Notes" defaultValue={editValues.notes} />
-                </p>
-                <p>Image URL 
+                    placeholder="Notes" defaultValue={editValues.notes} /><br />
+                <label htmlFor="image">Image URL<br /></label> 
                 <input type="text" name="image" id="image"
                     className="text" autoComplete="off"
-                    placeholder="Image URL" defaultValue={editValues.image} />
-                </p>
-                <p>Place in Folder
+                    placeholder="Image URL" defaultValue={editValues.image} /><br />
+                <label htmlFor="folderid">Place in folder<br /></label>
                     <select name="folderid">
                         <option value="default">Unorganized PageMarks</option>
                         {folderSelect}
-                    </select>
-                </p>
+                    </select><br />
                 <input type="submit" id="guessButton" className="button" name="submit" value="Submit" />
               </form>
               <a className="close" href="#" onClick={e => this.hide(e)}>Never mind</a>

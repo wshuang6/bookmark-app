@@ -12,7 +12,7 @@ export class Bookmarks extends React.Component {
     if(this.props.error) {
       return <li>Error</li>;
     }
-    let bookmarkList = this.props.bookmarks.filter((bookmark) => {return bookmark.folderid == this.props.currentFolderId})
+    let bookmarkList = this.props.bookmarks.filter((bookmark) => {return bookmark.folderid === this.props.currentFolderId})
     bookmarkList = bookmarkList.map((bookmark) => {
       const imageURL = (() => {
         if (bookmark.image) {return bookmark.image}

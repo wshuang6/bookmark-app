@@ -19,6 +19,15 @@ body {
 	z-index: 1000;
 }
 
+button {
+	border: 1px gray solid;
+	background: none;
+}
+
+button:hover, button:focus {
+	background: orange;
+}
+
 ul {
 	list-style-type: none;
 }

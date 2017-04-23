@@ -32,11 +32,10 @@ export class FolderModal extends React.Component {
         return (
             <div className="overlay" id="modal">
               <form onSubmit={(e) => this.postFolder(e)}>
-                <p>Folder Name 
-                    <input type="text" name="foldername" id="foldername"
-                        className="text" autoComplete="off"
-                        placeholder="Folder Name" required defaultValue={editValues.foldername} />
-                </p>
+                <label htmlFor="foldername">Folder name</label><br /> 
+                <input type="text" name="foldername" id="foldername"
+                    className="text" autoComplete="off"
+                    placeholder="Folder Name" required defaultValue={editValues.foldername} /><br />
                 <input type="submit" id="folderButton" className="button" name="submit" value="Submit" />
               </form>
               <a className="close" href="#" onClick={e => this.hide(e)}>Never mind</a>

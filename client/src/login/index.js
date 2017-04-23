@@ -5,13 +5,8 @@ import './index.css';
 import {Redirect} from 'react-router-dom';
 
 export class Login extends React.Component {
-  loggingIn(e) {
-    e.preventDefault();
-    this.props.dispatch(toggleLoggingIn(true));
-  }
-  signingUp(e) {
-    e.preventDefault();
-    this.props.dispatch(toggleLoggingIn(false));
+  toggleLoggingIn() {
+    this.props.dispatch(toggleLoggingIn(!this.props.loggingIn));
   }
   verifyLogIn(e) {
     e.preventDefault();
@@ -19,63 +14,44 @@ export class Login extends React.Component {
       email: e.target.email.value, 
       password: e.target.password.value
     }
-    this.props.dispatch(validateUser(user));
-  }
-  //TO-DO REFACTOR THIS PART. UNNECESSARY TO HAVE BOTH CHECKS.
-  createUser(e) {
-    e.preventDefault();
-    const user = {
-      email: e.target.email.value, 
-      password: e.target.password.value
-    }
-    this.props.dispatch(createUser(user));
+    if (this.props.loggingIn) {
+      this.props.dispatch(validateUser(user))
+    } 
+    else {
+      this.props.dispatch(createUser(user))
+      }
   }
   render () {
-    console.log(this.props.userid)
+    const user = {
+      email: localStorage.getItem('email'), 
+      password: localStorage.getItem('password')
+    }
     if (this.props.email && this.props.userid && !this.props.error) {
       return (<Redirect to="/bookmarks" />)
+    } else if ((!this.props.email || !this.props.userid || this.props.error) && (user.email && user.password)) { 
+      this.props.dispatch((validateUser(user)))
     }
-    let errorMessage;
-    if (this.props.error) {
-      errorMessage = `Error: ${this.props.error}`
-    }
-    const formFiller = (
-      <div className="mainlogin">
-        <label htmlFor="email">Email<br /></label>
-        <input type="email" placeholder="foo@bar.com" name="email" id="email" required />
-        <br /><br />
-        <label htmlFor="password">Password<br /></label>
-        <input type="password" placeholder="1234passw0rd" name="password" id="password" required />
-        <br />
-        <button type="submit">Submit<br /></button>
-        <p>{errorMessage}</p>
-      </div>
-      )
-
-      //TO-DO REFACTOR TO NO LONGER BE AN IFFE. ALSO REFACTOR BECAUSE ALL YOU NEED ARE THE WORDS
-    const renderLogIn = (() => {
-      if (this.props.loggingIn) {
-        return (
-          <form onSubmit={e => this.verifyLogIn(e)}>
-            <fieldset name="sign-up">
-              <legend>Log in</legend>
-              {formFiller}
-            </fieldset>
-            <a href="#" onClick={(e) => this.signingUp(e)}>Signing up? Click here.</a>
-          </form>)
-      } else
-      if (!this.props.loggingIn) {
-        return (
-          <form onSubmit={e => this.createUser(e)}>
-            <fieldset name="sign-up">
-              <legend>Sign up</legend>
-              {formFiller}
-            </fieldset>
-            <a href="#" onClick={(e) => this.loggingIn(e)}>Logging in? Click here.</a>
-          </form>)
-      }
-    })();
-    return (<div>{renderLogIn}</div>)
+    const errorMessage = (this.props.error) ? `Error: ${this.props.error}` : null;
+    const header = (this.props.loggingIn) ? 'Log in' : 'Sign up';
+    const toggleSignUp = (this.props.loggingIn) ? 'Signing up? Click here.' : 'Logging in? Click here.'
+    return (
+      <form onSubmit={e => this.verifyLogIn(e)}>
+        <fieldset name="sign-up">
+          <legend>{header}</legend>
+          <div className="mainlogin">
+            <label htmlFor="email">Email<br /></label>
+            <input type="email" placeholder="foo@bar.com" name="email" id="email" required />
+            <br /><br />
+            <label htmlFor="password">Password<br /></label>
+            <input type="password" placeholder="1234passw0rd" name="password" id="password" required />
+            <br />
+            <button type="submit">Submit<br /></button>
+            <p>{errorMessage}</p>
+          </div>
+        </fieldset>
+        <a href="#" onClick={() => this.toggleLoggingIn()}>{toggleSignUp}</a>
+      </form>
+    )
   }
 }
 

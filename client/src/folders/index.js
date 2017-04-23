@@ -35,10 +35,6 @@ export class Folders extends React.Component {
     this.props.dispatch(removeUser());
   }
   renderResults() {
-    console.log(this.props.userid)
-    if (!this.props.userid && !this.props.error) {
-      return (<Redirect to="/login" />)
-    }
     if(this.props.loading) {
       return <li>Loading</li>;
     }
@@ -80,6 +76,9 @@ export class Folders extends React.Component {
     this.props.dispatch(fetchFolders(this.props.userid));
   }
   render () {
+    if (!this.props.userid && !this.props.error) { //WH: redirects to /login because going to / seemed to cause infintie loop
+      return (<Redirect to="/login" />)
+    }
     let folderModal;
     if (this.props.toggleAdd || this.props.editing) {
         folderModal = <FolderModal />;

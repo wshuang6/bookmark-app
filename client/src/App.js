@@ -19,7 +19,6 @@ export class Components extends React.Component {
               password: localStorage.getItem('password')
             }
             if (user.email && user.password) {
-              console.log('login attempted to validate existing creds')
               this.props.dispatch(validateUser(user))
               return (<Redirect to="/bookmarks"/>)
             }
