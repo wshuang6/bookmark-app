@@ -14,7 +14,7 @@ export class Folders extends React.Component {
     const bookmarks = this.props.bookmarks;
     const filterFunction = (bookmark) => {
       while ((i < 5) && (i2 < bookmarks.length)) {
-        if (bookmark[i2].title.toLowerCase().includes(currentSearchTerm.toLowerCase()) && (bookmark[i2].folderid === this.props.currentFolderId)) {
+        if (bookmark[i2].title.toLowerCase().includes(currentSearchTerm.toLowerCase())) {
           searchedArray.push(bookmark[i2])
           i++
         }
@@ -116,13 +116,13 @@ const mapStateToProps = (state)  => ({
   folders: state.folders.folders,
   loading: state.folders.loading, 
   error: state.folders.error,
-  userid: state.login.userid,
   toggleAdd: state.folders.toggleAdd,
   editing: state.folders.editing,
   currentFolderId: state.folders.currentFolderId,
+  results: state.folders.results,
+  userid: state.login.userid,
   email: state.login.email,
   bookmarks: state.bookmarks.bookmarks,
-  results: state.folders.results,
 })
 
 export default connect(mapStateToProps)(Folders);

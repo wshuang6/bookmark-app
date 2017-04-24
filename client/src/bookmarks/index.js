@@ -32,7 +32,6 @@ export class Bookmarks extends React.Component {
     this.props.dispatch(deleteBookmarks(this.props.userid, bookmarkid))
   }
   toggleAddBookmark(event) {
-    event.preventDefault();
     this.props.dispatch(toggleAddBookmark());
   }
   editBookmark(bookmark) {
@@ -65,9 +64,9 @@ const mapStateToProps = (state)  => ({
   bookmarks: state.bookmarks.bookmarks,
   loading: state.bookmarks.loading, 
   error: state.bookmarks.error,
-  userid: state.login.userid,
   toggleAdd: state.bookmarks.toggleAdd,
   editing: state.bookmarks.editing,
+  userid: state.login.userid,
   currentFolderId: state.folders.currentFolderId
 })
 
