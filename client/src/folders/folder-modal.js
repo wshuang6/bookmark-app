@@ -8,7 +8,9 @@ export class FolderModal extends React.Component {
     hide(event) {
         event.preventDefault();
         this.props.dispatch(editFolder(false));
-        if (this.props.toggleAdd) {this.props.dispatch(toggleAddFolder());}
+        if (this.props.toggleAdd) {
+            this.props.dispatch(toggleAddFolder());
+        }
     }
     postFolder(e) {
         e.preventDefault();
@@ -23,12 +25,15 @@ export class FolderModal extends React.Component {
             this.props.dispatch(updateFolders(this.props.userid, this.props.editing.folderid, postBody))
         };
         this.props.dispatch(editFolder(false));
-        if (this.props.toggleAdd) {this.props.dispatch(toggleAddFolder());}
+        if (this.props.toggleAdd) {
+            this.props.dispatch(toggleAddFolder());
+        }
     }
     render() {
         let editValues;
-        if (this.props.editing) {editValues = this.props.editing}
-        else {editValues = ""}
+        if (this.props.editing) {
+            editValues = this.props.editing
+        }
         return (
             <div className="overlay" id="modal">
               <form onSubmit={(e) => this.postFolder(e)}>

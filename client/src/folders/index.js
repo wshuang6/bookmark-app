@@ -22,12 +22,7 @@ export class Folders extends React.Component {
       }
     }
     filterFunction(bookmarks);
-    if (currentSearchTerm.length === 0) {
-      this.props.dispatch(searchBookmarks([]));
-    } 
-    else {
-      this.props.dispatch(searchBookmarks(searchedArray));
-    }
+    (currentSearchTerm.length === 0) ? this.props.dispatch(searchBookmarks([])) : this.props.dispatch(searchBookmarks(searchedArray));
   }  
   logOut () {
     localStorage.removeItem('email');
@@ -42,23 +37,29 @@ export class Folders extends React.Component {
       return <li>Error</li>;
     }
     let folderList = this.props.folders.map((folder) => {
-      return (<li key={folder.folderid}>
-      <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>{folder.foldername}</a>
-      <button onClick={() => {this.editFolder(folder)}}>Edit</button>
-      <button onClick={() => {this.deleteFolder(folder.folderid)}}>Delete</button></li>)
+      return (
+      <li key={folder.folderid}>
+        <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>{folder.foldername}</a>
+        <button className="button" onClick={() => {this.editFolder(folder)}}>
+          <img src="http://freevector.co/wp-content/uploads/2014/02/61776-edit-button.png" alt="Edit" className="buttonImg" />
+        </button>
+        <button className="button" onClick={() => {this.deleteFolder(folder.folderid)}}>
+          <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_delete_48px-128.png" alt="Delete" className="buttonImg" />
+        </button>
+      </li>)
     });
     return (folderList)
   }
   renderSearchResults() {
     let list = this.props.results.map((bookmark, i) => {
-      const imageURL = (() => {
-        if (bookmark.image) {return bookmark.image}
-        return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
-      })();
-      let bookmarkURL;
-      if (!bookmark.url.toLowerCase().includes('http://')) {bookmarkURL = `http://${bookmark.url}`}
-      else {bookmarkURL = bookmark.url}
-      return (<div><img alt="" src={imageURL}/><a key={i} href={bookmarkURL}>{bookmark.title}</a></div>)});
+      const imageURL = (bookmark.image) ? bookmark.image : `https://www.google.com/s2/favicons?domain=${bookmark.url}`;
+      const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
+      return (
+        <div>
+          <img alt="" src={imageURL}/>
+          <a key={i} href={bookmarkURL}>{bookmark.title}</a>
+        </div>)
+      });
     return (list)
   }
   deleteFolder(folderid) {
@@ -76,7 +77,7 @@ export class Folders extends React.Component {
     this.props.dispatch(fetchFolders(this.props.userid));
   }
   render () {
-    if (!this.props.userid && !this.props.error) { //WH: redirects to /login because going to / seemed to cause infintie loop
+    if (!this.props.userid && !this.props.error) { //WH: redirects to /login because going to / seemed to cause loop
       return (<Redirect to="/login" />)
     }
     let folderModal;
@@ -87,10 +88,11 @@ export class Folders extends React.Component {
       <div className="sidebar sidebar-left">
         <nav className="folder-menu">
           <p>Logged in as {this.props.email}</p>
-          <button onClick={() => {this.logOut()}}><Link to="/login">Log out</Link></button><br />
+          <button onClick={() => {this.logOut()}}>
+            <Link to="/login">Log out</Link>
+          </button><br />
           <div className='dropdown'>
             <form onChange={e => {
-              console.log(e.target.value)
               this.searchFilter(e.target.value)}}>
             <input type="text" name="search" id="search" autoComplete="off" placeholder="Search" />
             </form>
@@ -103,7 +105,9 @@ export class Folders extends React.Component {
             <a href="#" onClick={e => this.toggleAddFolder(e)}>
                 Add Folder
             </a>
-            <li><a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>Unorganized PageMarks</a></li>
+            <li>
+              <a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>Unorganized PageMarks</a>
+            </li>
             {this.renderResults()}
           </ul>
         </nav>

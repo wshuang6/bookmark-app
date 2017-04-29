@@ -43,21 +43,15 @@ export const createBookmarks = (userid, postInfo) => dispatch => {
   return fetch(`/api/`, {
     method: 'post',
     headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
     }, 
     body: JSON.stringify(postInfo)
   })
-  .then(() => {
-    return fetch(`/api/${userid}`)
-    })
+  .then(() => fetch(`/api/${userid}`))
   .then(res => res.json())
-  .then((res) => {
-      dispatch(fetchBookmarksSuccess(res));
-  })
-  .catch((err)=> {
-      dispatch(fetchBookmarksError(err));
-  })    
+  .then((res) => dispatch(fetchBookmarksSuccess(res)))
+  .catch((err)=> dispatch(fetchBookmarksError(err)))    
 }
 
 export const deleteBookmarks = (userid, id) => dispatch => {
@@ -65,12 +59,8 @@ export const deleteBookmarks = (userid, id) => dispatch => {
   return fetch(`/api/${id}`, {method: 'delete'})
   .then(res => fetch(`/api/${userid}`))
   .then(res => res.json())
-  .then((res) => {
-      dispatch(fetchBookmarksSuccess(res));
-  })
-  .catch((err)=> {
-      dispatch(fetchBookmarksError(err));
-  })
+  .then((res) => dispatch(fetchBookmarksSuccess(res)))
+  .catch((err)=> dispatch(fetchBookmarksError(err)))
 }
 
 export const updateBookmarks = (userid, id, postInfo) => dispatch => {
@@ -78,17 +68,13 @@ export const updateBookmarks = (userid, id, postInfo) => dispatch => {
     return fetch(`/api/${id}`, {
         method: 'PATCH', 
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         }, 
         body: JSON.stringify(postInfo)
     })
     .then(res => fetch(`/api/${userid}`))
     .then(res => res.json())
-    .then((res) => {
-        dispatch(fetchBookmarksSuccess(res));
-    })
-    .catch((err)=> {
-        dispatch(fetchBookmarksError(err));
-    })
+    .then((res) => dispatch(fetchBookmarksSuccess(res)))
+    .catch((err)=> dispatch(fetchBookmarksError(err)))
 }

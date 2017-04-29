@@ -15,6 +15,7 @@ const setError = (error) => ({
     type: SET_ERROR,
     error
 })
+
 export const SEARCH_BOOKMARKS = 'SEARCH_BOOKMARKS';
 export const searchBookmarks = (results) => ({
     type: SEARCH_BOOKMARKS,
@@ -26,6 +27,7 @@ export const toggleLoggingIn = (loggingIn) => ({
     type: TOGGLE_LOGGING_IN,
     loggingIn
 })
+
 export const createUser = (userInfo) => dispatch => {
   return fetch(`/api/users`, {
     method: 'post',
@@ -40,7 +42,6 @@ export const createUser = (userInfo) => dispatch => {
         if (res.headers.get('Content-Type').includes('application/json')) {
             return res.json()
             .then(res => {
-                dispatch(setError(res.message))
                 return Promise.reject(res)
             })
         }
@@ -54,7 +55,7 @@ export const createUser = (userInfo) => dispatch => {
     dispatch(setUser(res[0]))
   })
   .catch((err)=> {
-      console.log(err);
+        dispatch(setError(err.message));
   })
 }
 
@@ -70,8 +71,8 @@ export const validateUser = (userInfo) => dispatch => {
     })
     .then(res => {
         if (!res.ok) {
-        return Promise.reject({message: res.statusText})
-    }
+            return Promise.reject({message: res.statusText})
+        }
         return res.json()
     })
     .then(res => {

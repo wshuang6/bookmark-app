@@ -55,33 +55,26 @@ export const createFolders = (userid, postInfo) => dispatch => {
   return fetch(`/api/folders`, {
     method: 'post',
     headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     }, 
     body: JSON.stringify(postInfo)
   })
-  .then(() => {
-    return fetch(`/api/folders/${userid}`)})
+  .then(() => fetch(`/api/folders/${userid}`))
   .then(res => res.json())
-  .then((res) => {
-      dispatch(fetchFoldersSuccess(res));
-  })
-  .catch((err)=> {
-      dispatch(fetchFoldersError(err));
-  })    
+  .then((res) => dispatch(fetchFoldersSuccess(res)))
+  .catch((err) => dispatch(fetchFoldersError(err)))    
 }
 
 export const deleteFolders = (userid, id) => dispatch => {
   dispatch(fetchFoldersRequest());
-  return fetch(`/api/folders/${id}`, {method: 'delete'})
+  return fetch(`/api/folders/${id}`, {
+      method: 'delete'
+    })
   .then(res => fetch(`/api/folders/${userid}`))
   .then(res => res.json())
-  .then((res) => {
-      dispatch(fetchFoldersSuccess(res));
-  })
-  .catch((err)=> {
-      dispatch(fetchFoldersError(err));
-  })
+  .then((res) => dispatch(fetchFoldersSuccess(res)))
+  .catch((err) => dispatch(fetchFoldersError(err)))
 }
 
 export const updateFolders = (userid, id, postInfo) => dispatch => {
@@ -96,10 +89,6 @@ export const updateFolders = (userid, id, postInfo) => dispatch => {
     })
     .then(res => fetch(`/api/folders/${userid}`))
     .then(res => res.json())
-    .then((res) => {
-        dispatch(fetchFoldersSuccess(res));
-    })
-    .catch((err)=> {
-        dispatch(fetchFoldersError(err));
-    })
+    .then((res) => dispatch(fetchFoldersSuccess(res)))
+    .catch((err) => dispatch(fetchFoldersError(err)))
 }

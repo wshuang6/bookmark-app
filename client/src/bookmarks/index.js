@@ -7,26 +7,29 @@ import './index.css';
 export class Bookmarks extends React.Component {
   renderResults() {
     if(this.props.loading) {
-      return <li>Loading</li>;
+      return <li>Loading...</li>;
     }
     if(this.props.error) {
       return <li>Error</li>;
     }
-    let bookmarkList = this.props.bookmarks.filter((bookmark) => {return bookmark.folderid === this.props.currentFolderId})
+    let bookmarkList = this.props.bookmarks.filter((bookmark) => {
+      return bookmark.folderid === this.props.currentFolderId
+    })
     bookmarkList = bookmarkList.map((bookmark) => {
-      const imageURL = (() => {
-        if (bookmark.image) {return bookmark.image}
-        return `https://www.google.com/s2/favicons?domain=${bookmark.url}`
-      })();
-      let bookmarkURL;
-      if (!bookmark.url.toLowerCase().includes('http://')) {bookmarkURL = `http://${bookmark.url}`}
-      else {bookmarkURL = bookmark.url}
-      return (<li className="bookmarkli" key={bookmark.bookmarkid}><img src={imageURL} alt="" />
-      <a href={bookmarkURL} target="_blank">{bookmark.title}</a> - {bookmark.notes}
-      <button onClick={() => {this.editBookmark(bookmark)}}>Edit</button>
-      <button onClick={() => {this.deleteBookmark(bookmark.bookmarkid)}}>Delete</button></li>)
+      const imageURL = (bookmark.image) ? bookmark.image : `https://www.google.com/s2/favicons?domain=${bookmark.url}`;
+      const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
+      return (
+      <li className="bookmarkli" key={bookmark.bookmarkid}><img src={imageURL} alt="" />
+        <a href={bookmarkURL} target="_blank">{bookmark.title}</a> - {bookmark.notes}
+        <button className="button" onClick={() => {this.editBookmark(bookmark)}}>
+          <img src="http://freevector.co/wp-content/uploads/2014/02/61776-edit-button.png" alt="Edit" className="buttonImg" />
+        </button>
+        <button className="button" onClick={() => {this.deleteBookmark(bookmark.bookmarkid)}}>
+          <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_delete_48px-128.png" alt="Delete" className="buttonImg" />
+        </button>
+      </li>)
     });
-    return (bookmarkList)
+    return (bookmarkList);
   }
   deleteBookmark(bookmarkid) {
     this.props.dispatch(deleteBookmarks(this.props.userid, bookmarkid))

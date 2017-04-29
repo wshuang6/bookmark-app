@@ -2,7 +2,7 @@ import React from 'react';
 import Bookmarks from './bookmarks';
 import Folders from './folders';
 import Login from './login';
-import Nav from './nav';
+import Header from './header';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {validateUser} from './login/actions';
@@ -12,7 +12,7 @@ export class Components extends React.Component {
       return (
       <Router>
         <div>
-          <Nav />
+          <Header />
           <Route exact path="/" render={() => {
             const user = {
               email: localStorage.getItem('email'), 

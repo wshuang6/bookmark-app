@@ -1,7 +1,9 @@
 .sidebar {
+    padding-left: 5%;
     width: 20%;
-    background-color: white;
+    background-color: #9AD58E;
     float: left;
+    /*position: absolute;*/
     height: 1000px;
 }
 

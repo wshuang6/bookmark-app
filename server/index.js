@@ -9,17 +9,7 @@ const app = express();
 
 const {router: usersRouter} = require('./users');
 
-// API endpoints go here!
-
 app.use('/api/users/', usersRouter);
-
-// app.get('/api/users', (req, res) => {
-//     knex('users')
-//         .select()
-//         .then(results => {
-//             res.json(results);
-//         })
-// })
 
 // FOLDERS GET ENDPOINTS
 
@@ -158,7 +148,7 @@ app.post('/api/folders', jsonParser, (req, res) => {
 	});
 })
 
-// // FOLDER PATCH ENDPOINT
+// FOLDER PATCH ENDPOINT
 
 app.patch('/api/folders/:id', jsonParser, (req, res) => {
     knex('folders')
@@ -176,18 +166,18 @@ app.patch('/api/folders/:id', jsonParser, (req, res) => {
 
 
 
-// // FOLDER DELETE ENDPOINT
+// FOLDER DELETE ENDPOINT
 
 app.delete('/api/folders/:id', (req, res) => {
 	knex.del()
     .where('folderid',req.params.id)
     .from('folders')
-   .then(result => {
+    .then(result => {
      return res.status(202).send('delete was successful');
-   })
-	 .catch(err => {
-   	 console.log(err);
-		 return res.status(500).json({message: "Internal server error"}); 
+    })
+	.catch(err => {
+       	console.log(err);
+		return res.status(500).json({message: "Internal server error"}); 
    });
 });
 

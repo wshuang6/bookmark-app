@@ -109,7 +109,6 @@ router.post('/', (req, res) => {
       })
     })
     .catch(err => {
-      console.log(err)
       if (err.status) {
         return res.status(err.status).json({message: err.message});
       }

@@ -39,13 +39,11 @@ export class Login extends React.Component {
         <fieldset name="sign-up">
           <legend>{header}</legend>
           <div className="mainlogin">
-            <label htmlFor="email">Email<br /></label>
-            <input type="email" placeholder="foo@bar.com" name="email" id="email" required />
-            <br /><br />
-            <label htmlFor="password">Password<br /></label>
-            <input type="password" placeholder="1234passw0rd" name="password" id="password" required />
-            <br />
-            <button type="submit">Submit<br /></button>
+            <label htmlFor="email">Email</label><br />
+            <input type="email" placeholder="foo@bar.com" name="email" id="email" required /><br />
+            <label htmlFor="password">Password</label><br />
+            <input type="password" placeholder="1234passw0rd" name="password" id="password" required /><br />
+            <button type="submit">Submit</button><br />
             <p>{errorMessage}</p>
           </div>
         </fieldset>
