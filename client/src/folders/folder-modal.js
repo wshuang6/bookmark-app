@@ -30,10 +30,7 @@ export class FolderModal extends React.Component {
         }
     }
     render() {
-        let editValues;
-        if (this.props.editing) {
-            editValues = this.props.editing
-        }
+        let editValues = this.props.editing ? this.props.editing : "";
         return (
             <div className="overlay" id="modal">
               <form onSubmit={(e) => this.postFolder(e)}>

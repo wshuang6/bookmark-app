@@ -41,10 +41,7 @@ export class BookmarkModal extends React.Component {
     }
     
     render() {
-        let editValues;
-        if (this.props.editing) {
-            editValues = this.props.editing
-        };
+        let editValues = this.props.editing ? this.props.editing : "";
         const folderSelect = this.props.folders.map((folder) => {
             return (<option key={folder.folderid} value={folder.folderid}>{folder.foldername}</option>)
         })
