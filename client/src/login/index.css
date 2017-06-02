@@ -1,6 +1,39 @@
 .mainlogin {
-  text-align: center;
+  /*text-align: center;*/
   /*height: 150px;
   padding: 20px;*/
+  margin: auto;
+  width: 400px;
   color: black;
+  padding-top: 100px;
+}
+
+.log-in-field {
+  padding: 50px;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.log-in-legend {
+  letter-spacing: 0;
+}
+
+.email, .password
+{
+  display: block;
+  width: 100%;
+  height: auto;
+  font-size: 16px;
+  text-align: left;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  border-radius: 3px;
+  background: #fcfcfc;
+  margin: 10px auto 20px;
+  transition: opacity 0.4s;
+}
+
+.log-in-button {
+  width: 50%;
 }

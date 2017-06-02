@@ -35,18 +35,18 @@ export class Login extends React.Component {
     const errorMessage = (this.props.error) ? `Error: ${this.props.error}` : null;
     return (
       <form onSubmit={e => this.verifyLogIn(e)}>
-        <fieldset name="sign-up">
-          <legend>Sign Up/Log In</legend>
           <div className="mainlogin">
+        <fieldset className="log-in-field" name="sign-up">
+          <legend className="log-in-legend">Sign Up/Log In</legend>
             <label htmlFor="email">Email</label><br />
-            <input type="email" placeholder="foo@bar.com" name="email" id="email" required /><br />
+            <input type="email" placeholder="foo@bar.com" name="email" className="email" required /><br />
             <label htmlFor="password">Password</label><br />
-            <input type="password" placeholder="1234passw0rd" name="password" id="password" required /><br />
-            <button type="submit" onClick={e => this.signingUp(true)} name="button" value="log-in">Log In</button>
-            <button type="submit" onClick={e => this.signingUp(false)} name="button" value="sign-up">Sign Up</button><br />
+            <input type="password" placeholder="1234passw0rd" name="password" className="password" required /><br />
+            <button type="submit" onClick={e => this.signingUp(true)} name="button" className="log-in-button" value="log-in">Log In</button>
+            <button type="submit" onClick={e => this.signingUp(false)} name="button" className="log-in-button" value="sign-up">Sign Up</button><br />
             <p>{errorMessage}</p>
-          </div>
         </fieldset>
+          </div>
       </form>
     )
   }

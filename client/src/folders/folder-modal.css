@@ -1,0 +1,9 @@
+.folder-modal-content {
+  width: 20%;
+  min-width: 300px;
+  margin: auto;
+	text-align: center;
+  background-color: white;
+  padding: 40px 0;
+  overflow: auto;
+}
