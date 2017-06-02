@@ -32,3 +32,16 @@ ul {
 	list-style-type: none;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: #376842;
+}
