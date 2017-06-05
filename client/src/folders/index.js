@@ -102,11 +102,13 @@ export class Folders extends React.Component {
           </div>
           <ul className="folder-menu-list">
             {folderModal}
-            <a href="#" onClick={e => this.toggleAddFolder(e)}>
-                Add Folder
-            </a>
+            <div className="addfolder">
+              <a href="#" onClick={e => this.toggleAddFolder(e)}>
+                  Add Folder
+              </a>
+            </div>
             <li>
-              <a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>Unorganized PageMarks</a>
+              <a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>Unorganized Pagemarks</a>
             </li>
             {this.renderResults()}
           </ul>

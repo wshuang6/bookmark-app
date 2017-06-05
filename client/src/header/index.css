@@ -5,16 +5,13 @@
   display: inline-block;
 }
 
-/*Nav {
-  background-color: #376842;
-}*/
 .App-logo {
-  height: 100px;
-  padding: 20px;
+  height: 30px;
+  padding: 5px;
 }
 
 .App-header {
-  background-color: #376842;
+  background-color: #282828;
   width: 100%;
 }
 

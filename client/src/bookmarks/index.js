@@ -31,7 +31,7 @@ export class Bookmarks extends React.Component {
       const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
       return (
         <li className="bookmarkli" key={bookmark.bookmarkid}><img src={imageURL} alt="" />
-          <a href={bookmarkURL} target="_blank">{bookmark.title}</a> - {bookmark.notes}
+          <a href={bookmarkURL} target="_blank">{bookmark.title}</a>  {bookmark.notes}
           <button className="button" onClick={() => this.editBookmark(bookmark)}>
             <img src="http://freevector.co/wp-content/uploads/2014/02/61776-edit-button.png" alt="Edit" className="buttonImg" />
           </button>
@@ -52,9 +52,11 @@ export class Bookmarks extends React.Component {
       <div className="bookmarkdiv">
         <ul className="bookmarkul">
           {bookmarkModal}
-          <a href="#" onClick={e => this.toggleAddBookmark(e)}>
+          <div className="bookies">
+          <a href="#" id="bookbutton" onClick={e => this.toggleAddBookmark(e)}>
               Add bookmark
           </a>
+          </div>
           {this.renderResults()}
         </ul>
       </div>
