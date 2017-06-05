@@ -4,9 +4,7 @@ const {DEV, PROD} = require('./config');
 const knex = require('knex')(DEV);
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-
 const app = express();
-
 const {router: usersRouter} = require('./users');
 
 app.use('/api/users/', usersRouter);
@@ -37,7 +35,6 @@ app.get('/api/', (request, res) => {
     })
 })
 
-
 app.get('/api/:id', (req, res) => {
     knex('bookmarks')
         .select(['url', 'title', 'notes', 'folderid', 'image', 'bookmarkid', 'userid'])
@@ -52,7 +49,6 @@ app.get('/api/:id', (req, res) => {
 })
 
 // BOOKMARK POST AND PATCH ENDPOINTS
-
 
 app.post('/api/', jsonParser, (req, res) => {
     const { url, title, notes, folderid, image, bookmarkid, userid } = req.body;
@@ -76,8 +72,6 @@ app.post('/api/', jsonParser, (req, res) => {
 		return res.status(500).json({message: "Internal server error"});  
 	});
 })
-
-
 
 // BOOKMARK PUT ENDPOINT
 
@@ -108,9 +102,6 @@ app.delete('/api/:id', (req, res) => {
 		 return res.status(500).json({message: "Internal server error"}); 
    });
 })
-
-
-
 
 // FOLDERS SPECIFIC GET ENDPOINT
 
@@ -164,8 +155,6 @@ app.patch('/api/folders/:id', jsonParser, (req, res) => {
 	});
 })
 
-
-
 // FOLDER DELETE ENDPOINT
 
 app.delete('/api/folders/:id', (req, res) => {
@@ -180,12 +169,6 @@ app.delete('/api/folders/:id', (req, res) => {
 		return res.status(500).json({message: "Internal server error"}); 
    });
 });
-
-
-
-
-
-
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/build')));

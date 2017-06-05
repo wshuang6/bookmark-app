@@ -1,15 +1,15 @@
 .sidebar {
     padding-left: 5%;
     width: 20%;
-    background-color: #9AD58E;
+    background-color: #f9f9f9;
     float: left;
     /*position: absolute;*/
     height: 1000px;
 }
 
 .sidebar-left {
-    border-right: 1px solid #000;
-    margin-right: 10px;
+    padding-right: 10%;
+        box-shadow: 8px 0px 15px #A9A9A9;
 }
 
 .folder-menu-list {
@@ -21,6 +21,7 @@
 .folder-menu-list-item {
     padding: 10px;
     border-bottom: 1px solid #000;
+    padding-top: 20px;
 }
 
 .dropdown {
@@ -36,6 +37,16 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-/*.dropdown-content:hover {
-    background-color: gray;
-}*/
+
+#search {
+    margin-top:30px;
+    margin-bottom: 30px;
+}
+
+li {
+    padding-top:20px;
+}
+
+.addfolder {
+    font-size: 30px;
+}
