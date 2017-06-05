@@ -5,8 +5,8 @@ import './index.css';
 import {Redirect} from 'react-router-dom';
 
 export class Login extends React.Component {
-  toggleLoggingIn() {
-    this.props.dispatch(toggleLoggingIn(!this.props.loggingIn));
+  signingUp(boolean) {
+    this.props.dispatch(toggleLoggingIn(boolean));
   }
   verifyLogIn(e) {
     e.preventDefault();
@@ -16,11 +16,12 @@ export class Login extends React.Component {
     }
     if (this.props.loggingIn) {
       this.props.dispatch(validateUser(user))
-    } 
+    }
     else {
       this.props.dispatch(createUser(user))
-      }
+    }
   }
+
   render () {
     const user = {
       email: localStorage.getItem('email'), 
@@ -32,22 +33,20 @@ export class Login extends React.Component {
       this.props.dispatch((validateUser(user)))
     }
     const errorMessage = (this.props.error) ? `Error: ${this.props.error}` : null;
-    const header = (this.props.loggingIn) ? 'Log in' : 'Sign up';
-    const toggleSignUp = (this.props.loggingIn) ? 'Signing up? Click here.' : 'Logging in? Click here.'
     return (
       <form onSubmit={e => this.verifyLogIn(e)}>
-        <fieldset name="sign-up">
-          <legend>{header}</legend>
           <div className="mainlogin">
+        <fieldset className="log-in-field" name="sign-up">
+          <legend className="log-in-legend">Sign Up/Log In</legend>
             <label htmlFor="email">Email</label><br />
-            <input type="email" placeholder="foo@bar.com" name="email" id="email" required /><br />
+            <input type="email" placeholder="foo@bar.com" name="email" className="email" required /><br />
             <label htmlFor="password">Password</label><br />
-            <input type="password" placeholder="1234passw0rd" name="password" id="password" required /><br />
-            <button type="submit">Submit</button><br />
+            <input type="password" placeholder="1234passw0rd" name="password" className="password" required /><br />
+            <button type="submit" onClick={e => this.signingUp(true)} name="button" className="log-in-button" value="log-in">Log In</button>
+            <button type="submit" onClick={e => this.signingUp(false)} name="button" className="log-in-button" value="sign-up">Sign Up</button><br />
             <p>{errorMessage}</p>
-          </div>
         </fieldset>
-        <a href="#" onClick={() => this.toggleLoggingIn()}>{toggleSignUp}</a>
+          </div>
       </form>
     )
   }

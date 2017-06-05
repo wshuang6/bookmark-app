@@ -1,6 +1,6 @@
 import {SET_USER, SET_ERROR, TOGGLE_LOGGING_IN, REMOVE_USER} from './actions';
 const initialState = {
-  loggingIn: false,
+  loggingIn: true,
   email: null,
   userid: null,
   error: null

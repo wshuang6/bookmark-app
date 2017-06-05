@@ -1,0 +1,23 @@
+.bookmark-modal-content {
+  width: 40%;
+  min-width: 300px;
+  margin: auto;
+	text-align: center;
+  background-color: white;
+  padding: 40px 0;
+  overflow: auto;
+}
+
+.modal-form > *, .modal-form {
+  margin-bottom: 7px;
+  margin-top: 7px;
+  font-size: 16px;
+}
+
+.text {
+  width: 80%;
+}
+
+.notes-text {
+  height: 100px;
+}
