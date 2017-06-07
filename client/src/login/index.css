@@ -19,8 +19,7 @@
   letter-spacing: 0;
 }
 
-.email, .password
-{
+.email, .password {
   display: block;
   width: 100%;
   height: auto;

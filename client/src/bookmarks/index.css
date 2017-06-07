@@ -1,13 +1,3 @@
-a {
-    text-decoration: none;
-    color: #282828;
-    text-align: right;
-}
-
-a:hover {
-    color: #0df644;
-}
-
 .bookmarkul {
     width: 600 px;
 }

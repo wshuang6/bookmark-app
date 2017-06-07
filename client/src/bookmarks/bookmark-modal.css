@@ -18,6 +18,10 @@
   width: 80%;
 }
 
+.icon, .favicon {
+  padding-right: 3px;
+}
+
 .notes-text {
   height: 100px;
 }

@@ -39,13 +39,13 @@ export class Folders extends React.Component {
     let folderList = this.props.folders.map((folder) => {
       return (
       <li key={folder.folderid}>
+        <a onClick={() => {this.editFolder(folder)}}>
+          <i className="fa fa-edit icon"></i>
+        </a>
+        <a onClick={() => {this.deleteFolder(folder.folderid)}}>
+          <i className="fa fa-close icon"></i>
+        </a>
         <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>{folder.foldername}</a>
-        <button className="button" onClick={() => {this.editFolder(folder)}}>
-          <img src="http://freevector.co/wp-content/uploads/2014/02/61776-edit-button.png" alt="Edit" className="buttonImg" />
-        </button>
-        <button className="button" onClick={() => {this.deleteFolder(folder.folderid)}}>
-          <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_delete_48px-128.png" alt="Delete" className="buttonImg" />
-        </button>
       </li>)
     });
     return (folderList)
