@@ -15,7 +15,27 @@
     text-align: left;
 }
 
+.bookmark-title {
+    font-size: 20px;
+    display: inline;
+    margin-right: 5px;
+}
+
+.bookmark-notes {
+    font-size: 14px;
+}
+
 .bookies {
     padding-left: 48%;
     font-size: 35px;
+}
+
+i {
+    border: 1px solid gray;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
 }

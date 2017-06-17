@@ -31,13 +31,17 @@ export class Bookmarks extends React.Component {
       const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
       return (
         <li className="bookmarkli" key={bookmark.bookmarkid}>
+          <a href={bookmarkURL} target="_blank">
+            <img className="favicon" src={imageURL} alt="" />
+            <p className="bookmark-title">{bookmark.title}</p>
+          </a>  
           <a onClick={() => this.editBookmark(bookmark)}>
             <i className="fa fa-edit icon"></i>
           </a>
           <a onClick={() => this.deleteBookmark(bookmark.bookmarkid)}>
             <i className="fa fa-close icon"></i>
           </a>
-          <a href={bookmarkURL} target="_blank"><img className="favicon" src={imageURL} alt="" />{bookmark.title}</a>  {bookmark.notes}
+          <p className="bookmark-notes">{bookmark.notes}</p>
         </li>
       )
     });

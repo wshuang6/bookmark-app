@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #fff;
 }
 
@@ -45,5 +45,17 @@ a:visited {
 }
 
 a:hover {
-  color: #0df644;
+  color: #057720;
+}
+
+button {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: none;
+  border-radius: 6px;
+  box-shadow: none;
+  text-shadow: none;
+	border: 1px solid black;
 }
