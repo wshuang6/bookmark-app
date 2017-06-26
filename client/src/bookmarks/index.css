@@ -8,9 +8,11 @@
 }
 
 .bookmarkdiv {
+    padding-left: 50px;
     background-color: #fff;
     padding-top: 30px;
     text-align: left;
+    width: 75%;
 }
 
 .bookmark-title {

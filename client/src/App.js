@@ -11,7 +11,7 @@ export class Components extends React.Component {
   render () {
       return (
       <Router>
-        <div>
+        <div className="main-container">
           <Header />
           <Route exact path="/" render={() => {
             const user = {
