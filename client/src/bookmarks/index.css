@@ -3,10 +3,8 @@
 }
 
 .bookmarkli {
-    height: 25%;
-    padding-top: 25px;
-    padding-bottom: 15px;
-    padding-left: 50%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .bookmarkdiv {
@@ -23,19 +21,38 @@
 
 .bookmark-notes {
     font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .bookies {
-    padding-left: 48%;
     font-size: 35px;
 }
 
 i {
-    border: 1px solid gray;
+    /*border: 1px solid gray;*/
     padding-left: 6px;
     padding-right: 6px;
     padding-top: 2px;
     padding-bottom: 2px;
     border-radius: 4px;
-    background-color: #f2f2f2;
+    /*background-color: #f2f2f2;*/
+}
+
+.hidden {
+    padding-left: 2px;
+    color: gray;
+    display: none;
+}
+
+.bookmarkli:hover {
+    background: #f3f3f3;
+}
+
+.bookmarkli:hover .hidden {
+    display: inline;
+}
+
+.hidden:hover {
+    color: #057720;
 }

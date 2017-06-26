@@ -41,6 +41,9 @@ export class Bookmarks extends React.Component {
           <a onClick={() => this.deleteBookmark(bookmark.bookmarkid)}>
             <i className="fa fa-close icon"></i>
           </a>
+          <a className="hidden" href={bookmarkURL} target="_blank">
+            <p className="hidden">{bookmarkURL}</p>
+          </a>
           <p className="bookmark-notes">{bookmark.notes}</p>
         </li>
       )

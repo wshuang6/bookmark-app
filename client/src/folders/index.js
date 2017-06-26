@@ -55,9 +55,9 @@ export class Folders extends React.Component {
       const imageURL = (bookmark.image) ? bookmark.image : `https://www.google.com/s2/favicons?domain=${bookmark.url}`;
       const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
       return (
-        <div>
+        <div key={i}>
           <img alt="" src={imageURL}/>
-          <a key={i} href={bookmarkURL}>{bookmark.title}</a>
+          <a href={bookmarkURL}>{bookmark.title}</a>
         </div>)
       });
     return (list)
