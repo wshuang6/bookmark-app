@@ -39,7 +39,7 @@ export class FolderModal extends React.Component {
                     <input type="text" name="foldername" id="foldername"
                         className="text" autoComplete="off"
                         placeholder="Folder Name" required defaultValue={editValues.foldername} /><br />
-                    <input type="submit" id="folderButton" className="button" name="submit" value="Submit" />
+                    <input type="submit" id="folderButton" className="modal-submit" name="submit" value="Submit" />
                     </form>
                     <a className="close" href="#" onClick={e => this.hide(e)}>Never mind</a>
                 </div>

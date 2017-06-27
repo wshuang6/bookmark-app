@@ -1,16 +1,38 @@
 .bookmarkul {
-    width: 600 px;
+    display: flex;
+    flex-wrap: wrap;    
 }
 
 .bookmarkli {
     padding-top: 5px;
     padding-bottom: 5px;
+    width: 30%;
+    margin-right: 3%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    height: 100px;
+    overflow: auto;
+    position: relative;
+}
+
+@media only screen and (max-width: 1200px) {
+  .bookmarkli {
+    width: 47%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .bookmarkli {
+    width: 97%;
+  }
 }
 
 .bookmarkdiv {
     padding-left: 50px;
     background-color: #fff;
-    padding-top: 30px;
+    padding-top: 10px;
     text-align: left;
     width: 75%;
 }
@@ -47,14 +69,8 @@ i {
     display: none;
 }
 
-.bookmarkli:hover {
-    background: #f3f3f3;
-}
-
-.bookmarkli:hover .hidden {
-    display: inline;
-}
-
-.hidden:hover {
-    color: #057720;
+.bookmark-url {
+    margin: 0;
+    color: gray;
+    font-size: 14px;
 }

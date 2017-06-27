@@ -25,3 +25,7 @@
 .notes-text {
   height: 100px;
 }
+
+#notes {
+  font-family: inherit;
+}

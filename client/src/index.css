@@ -23,6 +23,7 @@ body {
 	right: 0;
 	margin: 0;
 	overflow: auto;
+  z-index: 1000;
 }
 
 .button {
@@ -36,6 +37,7 @@ body {
 }
 ul {
 	list-style-type: none;
+  padding: 0;
 }
 
 a {
@@ -48,11 +50,12 @@ a:visited {
   color: inherit;
 }
 
-a:hover {
+a:hover, .bookmark-url:hover, .modal-submit:hover {
   color: #057720;
+  cursor: pointer;
 }
 
-button {
+button, .modal-submit {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 15px;
@@ -67,4 +70,11 @@ button {
 .main-container {
   display: flex;
   flex-wrap: wrap;
+}
+
+.align-right {
+    display: inline-block;
+    position: absolute;
+    right: 4px;
+    top: 10px;
 }

@@ -1,13 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {fetchFolders, toggleAddFolder, editFolder, deleteFolders, currentFolder, searchBookmarks} from './actions';
+import { connect } from 'react-redux';
+import { fetchFolders, toggleAddFolder, editFolder, deleteFolders, currentFolder, searchBookmarks } from './actions';
 import FolderModal from './folder-modal';
 import './index.css';
-import {removeUser} from '../login/actions';
-import {Link, Redirect} from 'react-router-dom';
+import { removeUser } from '../login/actions';
+import { Link, Redirect } from 'react-router-dom';
 
 export class Folders extends React.Component {
-  searchFilter (currentSearchTerm) {
+  searchFilter(currentSearchTerm) {
     let searchedArray = [];
     let i = 0;
     let i2 = 0;
@@ -23,30 +23,36 @@ export class Folders extends React.Component {
     }
     filterFunction(bookmarks);
     (currentSearchTerm.length === 0) ? this.props.dispatch(searchBookmarks([])) : this.props.dispatch(searchBookmarks(searchedArray));
-  }  
-  logOut () {
+  }
+  logOut() {
     localStorage.removeItem('email');
     localStorage.removeItem('password');
     this.props.dispatch(removeUser());
   }
   renderResults() {
-    if(this.props.loading) {
+    if (this.props.loading) {
       return <li>Loading</li>;
     }
-    if(this.props.error) {
+    if (this.props.error) {
       return <li>Error</li>;
     }
     let folderList = this.props.folders.map((folder) => {
       return (
-      <li key={folder.folderid}>
-        <a onClick={() => {this.editFolder(folder)}}>
-          <i className="fa fa-edit icon"></i>
-        </a>
-        <a onClick={() => {this.deleteFolder(folder.folderid)}}>
-          <i className="fa fa-close icon"></i>
-        </a>
-        <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>{folder.foldername}</a>
-      </li>)
+        <li className="folder-li" key={folder.folderid}>
+
+          <a href='#' onClick={() => this.props.dispatch(currentFolder(folder.folderid))}>
+            <i className="fa fa-folder-o icon"></i>
+            {folder.foldername}
+          </a>
+          <div className="align-right">
+            <a onClick={() => { this.editFolder(folder) }}>
+              <i className="fa fa-edit icon folder-icon"></i>
+            </a>
+            <a onClick={() => { this.deleteFolder(folder.folderid) }}>
+              <i className="fa fa-close icon folder-icon"></i>
+            </a>
+          </div>
+        </li>)
     });
     return (folderList)
   }
@@ -56,10 +62,10 @@ export class Folders extends React.Component {
       const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
       return (
         <div key={i}>
-          <img alt="" src={imageURL}/>
+          <img alt="" src={imageURL} />
           <a href={bookmarkURL}>{bookmark.title}</a>
         </div>)
-      });
+    });
     return (list)
   }
   deleteFolder(folderid) {
@@ -76,39 +82,49 @@ export class Folders extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchFolders(this.props.userid));
   }
-  render () {
+  render() {
     if (!this.props.userid && !this.props.error) { //WH: redirects to /login because going to / seemed to cause loop
       return (<Redirect to="/login" />)
     }
     let folderModal;
     if (this.props.toggleAdd || this.props.editing) {
-        folderModal = <FolderModal />;
+      folderModal = <FolderModal />;
     }
     return (
       <div className="sidebar sidebar-left">
         <nav className="folder-menu">
-          <p>Logged in as {this.props.email}</p>
-          <button onClick={() => {this.logOut()}}>
-            <Link to="/login">Log out</Link>
-          </button><br />
+          <div className="user-info">
+            <p>{this.props.email}</p>
+            <button onClick={() => { this.logOut() }}>
+              <Link to="/login">Log out</Link>
+            </button>
+          </div>
           <div className='dropdown'>
-            <form onChange={e => {
-              this.searchFilter(e.target.value)}}>
-            <input type="text" name="search" id="search" autoComplete="off" placeholder="Search" />
+            <form className="search-form" onChange={e => {
+              this.searchFilter(e.target.value)
+            }}>
+            <i className="fa fa-search icon"></i>
+              <input type="text" name="search" id="search" autoComplete="off" placeholder="Search" />
             </form>
             <div className="dropdown-content">
               {this.renderSearchResults()}
             </div>
           </div>
-          <ul className="folder-menu-list">
-            {folderModal}
-            <div className="addfolder">
-              <a href="#" onClick={e => this.toggleAddFolder(e)}>
-                  Add Folder
+          {folderModal}
+          <div className="addfolder">
+            <button onClick={e => this.toggleAddFolder(e)}>
+              <a href="#">
+              Add folder
               </a>
-            </div>
-            <li>
-              <a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>Unorganized Pagemarks</a>
+            </button>
+          </div>
+          <h3 className="folder-header">My folders</h3>
+          <ul className="folder-menu-list">
+            <li className="folder-li">
+              <a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>
+                <i className="fa fa-folder-o icon"></i>
+                Unorganized Pagemarks
+              </a>
             </li>
             {this.renderResults()}
           </ul>
@@ -118,9 +134,9 @@ export class Folders extends React.Component {
   }
 }
 
-const mapStateToProps = (state)  => ({
+const mapStateToProps = (state) => ({
   folders: state.folders.folders,
-  loading: state.folders.loading, 
+  loading: state.folders.loading,
   error: state.folders.error,
   toggleAdd: state.folders.toggleAdd,
   editing: state.folders.editing,

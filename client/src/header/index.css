@@ -6,12 +6,13 @@
 }
 
 .App-logo {
-  height: 30px;
+  height: 40px;
   padding: 5px;
 }
 
 .App-header {
-  background-color: #282828;
+  /*background-color: #282828;*/
+  background-color: #057720;
   width: 100%;
 }
 

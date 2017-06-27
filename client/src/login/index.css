@@ -17,6 +17,9 @@
 
 .log-in-legend {
   letter-spacing: 0;
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .email, .password {
@@ -48,4 +51,9 @@
 .log-in-background {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.log-in-field {
+  border: 0;
+  border-radius: 3px;
 }
