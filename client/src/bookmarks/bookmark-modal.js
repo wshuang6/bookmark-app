@@ -27,7 +27,7 @@ export class BookmarkModal extends React.Component {
         } else {
             postBody.folderid = parseInt(postBody.folderid, 10);
         }
-        if (!postBody.url.toLowerCase().includes('http://')) {
+        if (!postBody.url.toLowerCase().includes('http://') && !postBody.url.toLowerCase().includes('https://')) {
             postBody.url = `http://${postBody.url}`
         }
         if (this.props.toggleAdd) {
