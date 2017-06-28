@@ -1,7 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #fff;
 }
 
@@ -19,6 +23,7 @@ body {
 	right: 0;
 	margin: 0;
 	overflow: auto;
+  z-index: 1000;
 }
 
 .button {
@@ -32,6 +37,7 @@ body {
 }
 ul {
 	list-style-type: none;
+  padding: 0;
 }
 
 a {
@@ -44,6 +50,45 @@ a:visited {
   color: inherit;
 }
 
-a:hover {
-  /*color: #376842;*/
+a:hover, .bookmark-url:hover, .modal-submit:hover {
+  color: #057720;
+  cursor: pointer;
+}
+
+button, .modal-submit {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: none;
+  border-radius: 6px;
+  box-shadow: none;
+  text-shadow: none;
+	border: 1px solid black;
+}
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.align-right {
+    display: inline-block;
+    position: absolute;
+    right: 4px;
+    top: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: lightgray;
 }

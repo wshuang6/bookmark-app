@@ -62,15 +62,15 @@ export class BookmarkModal extends React.Component {
                             className="text" autoComplete="off"
                             placeholder="Image URL" defaultValue={editValues.image} /><br />
                         <label htmlFor="notes">Notes<br /></label> 
-                        <input type="text" name="notes" id="notes"
+                        <textarea type="text" name="notes" id="notes"
                             className="text notes-text" autoComplete="off"
                             placeholder="Notes" defaultValue={editValues.notes} /><br />
                         <label htmlFor="folderid">Place in folder<br /></label>
                         <select name="folderid">
-                            <option value="default">Unorganized PageMarks</option>
+                            <option value="default">Unorganized Postmarks</option>
                             {folderSelect}
                         </select><br />
-                        <input type="submit" id="submitEditsButton" name="submit" value="Submit" />
+                        <input type="submit" className="modal-submit" name="submit" value="Submit" />
                     </form>
                     <a className="close" href="#" onClick={e => this.hide(e)}>Never mind</a>
                 </div>

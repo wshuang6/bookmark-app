@@ -3,27 +3,28 @@ import Bookmarks from './bookmarks';
 import Folders from './folders';
 import Login from './login';
 import Header from './header';
-import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-import {validateUser} from './login/actions';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { validateUser } from './login/actions';
 
 export class Components extends React.Component {
-  render () {
-      return (
+  render() {
+    let backgroundColor = (this.props.email) ? null : "black"
+    return (
       <Router>
-        <div>
-          <Header />
+        <div className="main-container">
+          <Header backgroundColor={backgroundColor} />
           <Route exact path="/" render={() => {
             const user = {
-              email: localStorage.getItem('email'), 
+              email: localStorage.getItem('email'),
               password: localStorage.getItem('password')
             }
             if (user.email && user.password) {
               this.props.dispatch(validateUser(user))
-              return (<Redirect to="/bookmarks"/>)
+              return (<Redirect to="/bookmarks" />)
             }
             else {
-              return (<Redirect to="/login"/>)
+              return (<Redirect to="/login" />)
             }
           }} />
           <Route exact path="/login" component={Login} />

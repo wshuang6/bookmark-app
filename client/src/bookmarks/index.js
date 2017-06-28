@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {fetchBookmarks, toggleAddBookmark, editBookmark, deleteBookmarks} from './actions';
+import { connect } from 'react-redux';
+import { fetchBookmarks, toggleAddBookmark, editBookmark, deleteBookmarks } from './actions';
 import BookmarkModal from './bookmark-modal';
 import './index.css';
 
@@ -19,10 +19,10 @@ export class Bookmarks extends React.Component {
     this.props.dispatch(editBookmark(bookmark));
   }
   renderResults() {
-    if(this.props.loading) {
+    if (this.props.loading) {
       return <li>Loading...</li>;
     }
-    if(this.props.error) {
+    if (this.props.error) {
       return <li>Error</li>;
     }
     let bookmarkList = this.props.bookmarks.filter((bookmark) => bookmark.folderid === this.props.currentFolderId);
@@ -30,43 +30,53 @@ export class Bookmarks extends React.Component {
       const imageURL = (bookmark.image) ? bookmark.image : `https://www.google.com/s2/favicons?domain=${bookmark.url}`;
       const bookmarkURL = (!bookmark.url.toLowerCase().includes('http://')) ? `http://${bookmark.url}` : bookmark.url;
       return (
-        <li className="bookmarkli" key={bookmark.bookmarkid}><img src={imageURL} alt="" />
-          <a href={bookmarkURL} target="_blank">{bookmark.title}</a>  {bookmark.notes}
-          <button className="button" onClick={() => this.editBookmark(bookmark)}>
-            <img src="http://freevector.co/wp-content/uploads/2014/02/61776-edit-button.png" alt="Edit" className="buttonImg" />
-          </button>
-          <button className="button" onClick={() => this.deleteBookmark(bookmark.bookmarkid)}>
-            <img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_delete_48px-128.png" alt="Delete" className="buttonImg" />
-          </button>
+        <li className="bookmarkli" key={bookmark.bookmarkid}>
+          <a href={bookmarkURL} target="_blank">
+            <img className="favicon" src={imageURL} alt="" />
+            <p className="bookmark-title">{bookmark.title}</p>
+          </a>
+          <a href={bookmarkURL} target="_blank">
+            <p className="bookmark-url">{bookmarkURL}</p>
+          </a>
+          <p className="bookmark-notes">{bookmark.notes}</p>
+          <div className="align-right">
+          <a onClick={() => this.editBookmark(bookmark)}>
+            <i className="fa fa-edit icon"></i>
+          </a>
+          <a onClick={() => this.deleteBookmark(bookmark.bookmarkid)}>
+            <i className="fa fa-close icon"></i>
+          </a>
+          </div>
         </li>
       )
     });
     return (bookmarkList);
   }
-  render () {
+  render() {
     let bookmarkModal;
     if (this.props.toggleAdd || this.props.editing) {
-        bookmarkModal = <BookmarkModal />;
+      bookmarkModal = <BookmarkModal />;
     }
     return (
       <div className="bookmarkdiv">
+        {bookmarkModal}
+        <div className="bookies">
+          <button id="bookbutton" onClick={e => this.toggleAddBookmark(e)}>
+            <a href="#">Add postmark</a>
+          </button>
+        </div>
+        <h3>My postmarks</h3>
         <ul className="bookmarkul">
-          {bookmarkModal}
-          <div className="bookies">
-          <a href="#" id="bookbutton" onClick={e => this.toggleAddBookmark(e)}>
-              Add bookmark
-          </a>
-          </div>
           {this.renderResults()}
         </ul>
       </div>
     )
   }
-} 
+}
 
-const mapStateToProps = (state)  => ({
+const mapStateToProps = (state) => ({
   bookmarks: state.bookmarks.bookmarks,
-  loading: state.bookmarks.loading, 
+  loading: state.bookmarks.loading,
   error: state.bookmarks.error,
   toggleAdd: state.bookmarks.toggleAdd,
   editing: state.bookmarks.editing,

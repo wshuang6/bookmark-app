@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 150px;
-}
-
 .App-header {
   background-color: #222;
   height: 150px;
@@ -21,3 +17,4 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
