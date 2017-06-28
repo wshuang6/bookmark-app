@@ -67,7 +67,7 @@ export class BookmarkModal extends React.Component {
                             placeholder="Notes" defaultValue={editValues.notes} /><br />
                         <label htmlFor="folderid">Place in folder<br /></label>
                         <select name="folderid">
-                            <option value="default">Unorganized PageMarks</option>
+                            <option value="default">Unorganized Postmarks</option>
                             {folderSelect}
                         </select><br />
                         <input type="submit" className="modal-submit" name="submit" value="Submit" />

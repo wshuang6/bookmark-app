@@ -62,10 +62,10 @@ export class Bookmarks extends React.Component {
         {bookmarkModal}
         <div className="bookies">
           <button id="bookbutton" onClick={e => this.toggleAddBookmark(e)}>
-            <a href="#">Add bookmark</a>
+            <a href="#">Add postmark</a>
           </button>
         </div>
-        <h3>My bookmarks</h3>
+        <h3>My postmarks</h3>
         <ul className="bookmarkul">
           {this.renderResults()}
         </ul>

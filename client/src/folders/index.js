@@ -123,7 +123,7 @@ export class Folders extends React.Component {
             <li className="folder-li">
               <a href='#' onClick={() => this.props.dispatch(currentFolder(null))}>
                 <i className="fa fa-folder-o icon"></i>
-                Unorganized Pagemarks
+                Unorganized Postmarks
               </a>
             </li>
             {this.renderResults()}
