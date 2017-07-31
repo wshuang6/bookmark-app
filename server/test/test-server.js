@@ -2,6 +2,7 @@ const server = require('../index');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const { app, runServer, closeServer } = require('../index');
+const faker = require('faker');
 
 const should = chai.should();
 chai.use(chaiHttp);
@@ -20,11 +21,13 @@ describe('server', function () {
   });
 
   describe('bookmarks endpoints', function () {
+    let bookmarksLength;
     it('should get the users bookmarks', function () {
       return chai.request(app)
         .get(`/api/20`)
         .then(res => {
-          console.log('res', res)
+          console.log('res', res.body)
+          bookmarksLength = res.body.length;
           res.should.be.json;
         })
     });
@@ -44,12 +47,30 @@ describe('server', function () {
     //   .then((res) => dispatch(fetchBookmarksSuccess(res)))
     //   .catch((err)=> dispatch(fetchBookmarksError(err)))    
     // }
+    let fakeBookmark = {
+      url: `http://${faker.random.word()}.com`,
+      title: faker.random.word(),
+      notes: faker.random.words(),
+      folderid: null,
+      image: null,
+      userid: 20
+    }
+    let bookmarkid;
+
     it('should create bookmarks', function () {
       return chai.request(app)
-        .post(`/api/20`)
-        .send()
+        .post(`/api/`)
+        .send(fakeBookmark)
         .then(res => {
-          console.log('res', res)
+          bookmarkId = res.body[0].bookmarkid;
+          console.log('res', res.body)
+        })
+        .then(irrelevant => {
+          return chai.request(app)
+            .get(`/api/20`)
+            .then(res => {
+              res.body.length.should.equal(bookmarksLength + 1);
+            })
         })
     })
 
@@ -65,9 +86,17 @@ describe('server', function () {
 
     it('should delete bookmarks', function () {
       return chai.request(app)
-        .delete(`/api/20`)
+        .delete(`/api/${bookmarkId}`)
         .then(res => {
-
+          console.log(res.text)
+          res.text.should.equal('delete was successful')
+        })
+        .then(irrelevant => {
+          return chai.request(app)
+            .get(`/api/20`)
+            .then(res => {
+              res.body.length.should.equal(bookmarksLength);
+            })
         })
     })
 

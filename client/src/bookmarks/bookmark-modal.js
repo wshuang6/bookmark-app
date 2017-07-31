@@ -12,7 +12,7 @@ export class BookmarkModal extends React.Component {
             this.props.dispatch(toggleAddBookmark());
         }
     }
-    postBookmark(e) {
+    sendBookmark(e) {
         e.preventDefault();
         let postBody = {
             url: e.target.url.value,
@@ -48,7 +48,7 @@ export class BookmarkModal extends React.Component {
         return (
             <div className="overlay" id="modal">
                 <div className="bookmark-modal-content">
-                    <form className="modal-form" onSubmit={(e) => this.postBookmark(e)}>
+                    <form className="modal-form" onSubmit={(e) => this.sendBookmark(e)}>
                         <label htmlFor="url">Bookmark URL<br /></label> 
                         <input type="text" name="url" id="url"
                             className="text" autoComplete="off"

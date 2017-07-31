@@ -11,29 +11,29 @@ app.use('/api/users/', usersRouter);
 
 // FOLDERS GET ENDPOINTS
 
-app.get('/api/folders', (request, res) => {
-    knex('folders')
-        .select(['foldername', 'userid'])
-        .then(results => {
-            res.json(results);
-        })
-        .catch((error) => {
-            console.error('ERROR:', error.message || error);
-            res.status(500);
-    })
-})
+// app.get('/api/folders', (request, res) => {
+//     knex('folders')
+//         .select(['foldername', 'userid'])
+//         .then(results => {
+//             res.json(results);
+//         })
+//         .catch((error) => {
+//             console.error('ERROR:', error.message || error);
+//             res.status(500);
+//     })
+// })
 
-app.get('/api/', (request, res) => {
-    knex('bookmarks')
-        .select(['url', 'title', 'notes', 'folderid', 'image', 'bookmarkid', 'userid'])
-        .then(results => {
-            res.json(results);
-        })
-        .catch((error) => {
-            console.error('ERROR:', error.message || error);
-            res.status(500);
-    })
-})
+// app.get('/api/', (request, res) => {
+//     knex('bookmarks')
+//         .select(['url', 'title', 'notes', 'folderid', 'image', 'bookmarkid', 'userid'])
+//         .then(results => {
+//             res.json(results);
+//         })
+//         .catch((error) => {
+//             console.error('ERROR:', error.message || error);
+//             res.status(500);
+//     })
+// })
 
 app.get('/api/:id', (req, res) => {
     knex('bookmarks')
