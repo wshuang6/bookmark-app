@@ -24,17 +24,20 @@ export class BookmarkModal extends React.Component {
         }
         if (postBody.folderid === "default") {
             postBody.folderid = null
-        } else {
+        } 
+        else {
             postBody.folderid = parseInt(postBody.folderid, 10);
         }
+        
         if (!postBody.url.toLowerCase().includes('http://') && !postBody.url.toLowerCase().includes('https://')) {
             postBody.url = `http://${postBody.url}`
         }
+        
         if (this.props.toggleAdd) {
             this.props.dispatch(createBookmarks(this.props.userid, postBody))
             this.props.dispatch(toggleAddBookmark());
-        } else 
-        if (this.props.editing) {
+        } 
+        else if (this.props.editing) {
             this.props.dispatch(updateBookmarks(this.props.userid, this.props.editing.bookmarkid, postBody))
         };
         this.props.dispatch(editBookmark(false));

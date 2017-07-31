@@ -32,21 +32,6 @@ describe('server', function () {
         })
     });
 
-    // export const createBookmarks = (userid, postInfo) => dispatch => {
-    //   dispatch(fetchBookmarksRequest());
-    //   return fetch(`/api/`, {
-    //     method: 'post',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     }, 
-    //     body: JSON.stringify(postInfo)
-    //   })
-    //   .then(() => fetch(`/api/${userid}`))
-    //   .then(res => res.json())
-    //   .then((res) => dispatch(fetchBookmarksSuccess(res)))
-    //   .catch((err)=> dispatch(fetchBookmarksError(err)))    
-    // }
     let fakeBookmark = {
       url: `http://${faker.random.word()}.com`,
       title: faker.random.word(),
@@ -55,7 +40,15 @@ describe('server', function () {
       image: null,
       userid: 20
     }
-    let bookmarkid;
+    let fakeBookmarkTwo = {
+      url: `http://${faker.random.word()}.com`,
+      title: faker.random.word(),
+      notes: faker.random.words(),
+      folderid: null,
+      image: null,
+      userid: 20
+    }
+    let bookmarkId;
 
     it('should create bookmarks', function () {
       return chai.request(app)
@@ -74,15 +67,21 @@ describe('server', function () {
         })
     })
 
-
-    // export const deleteBookmarks = (userid, id) => dispatch => {
-    //   dispatch(fetchBookmarksRequest());
-    //   return fetch(`/api/${id}`, {method: 'delete'})
-    //   .then(res => fetch(`/api/${userid}`))
-    //   .then(res => res.json())
-    //   .then((res) => dispatch(fetchBookmarksSuccess(res)))
-    //   .catch((err)=> dispatch(fetchBookmarksError(err)))
-    // }
+    it('should update bookmarks', function () {
+      return chai.request(app)
+        .patch(`/api/${bookmarkId}`)
+        .send(fakeBookmarkTwo)
+        .then(res => {
+          console.log('res', res.body)
+        })
+        .then(irrelevant => {
+          return chai.request(app)
+            .get(`/api/20`)
+            .then(res => {
+              res.body.length.should.equal(bookmarksLength + 1);
+            })
+        })
+    })
 
     it('should delete bookmarks', function () {
       return chai.request(app)
@@ -99,23 +98,6 @@ describe('server', function () {
             })
         })
     })
-
-
-    //     export const updateBookmarks = (userid, id, postInfo) => dispatch => {
-    //     dispatch(fetchBookmarksRequest());
-    //     return fetch(`/api/${id}`, {
-    //         method: 'PATCH', 
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }, 
-    //         body: JSON.stringify(postInfo)
-    //     })
-    //     .then(res => fetch(`/api/${userid}`))
-    //     .then(res => res.json())
-    //     .then((res) => dispatch(fetchBookmarksSuccess(res)))
-    //     .catch((err)=> dispatch(fetchBookmarksError(err)))
-    // }
 
     // export const fetchFolders = userid => dispatch => {
     //   dispatch(fetchFoldersRequest());
