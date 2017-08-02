@@ -58,7 +58,7 @@ describe('server', function () {
           bookmarkId = res.body[0].bookmarkid;
           console.log('res', res.body)
         })
-        .then(irrelevant => {
+        .then(() => {
           return chai.request(app)
             .get(`/api/20`)
             .then(res => {
@@ -74,7 +74,7 @@ describe('server', function () {
         .then(res => {
           console.log('res', res.body)
         })
-        .then(irrelevant => {
+        .then(() => {
           return chai.request(app)
             .get(`/api/20`)
             .then(res => {
@@ -90,7 +90,7 @@ describe('server', function () {
           console.log(res.text)
           res.text.should.equal('delete was successful')
         })
-        .then(irrelevant => {
+        .then(() => {
           return chai.request(app)
             .get(`/api/20`)
             .then(res => {
@@ -99,60 +99,64 @@ describe('server', function () {
         })
     })
 
-    // export const fetchFolders = userid => dispatch => {
-    //   dispatch(fetchFoldersRequest());
-    //   return fetch(`/api/folders/${userid}`)
-    //   .then(res => res.json())
-    //   .then((res) => {
-    //       dispatch(fetchFoldersSuccess(res));
-    //   })
-    //   .catch((err)=> {
-    //       dispatch(fetchFoldersError(err));
-    //   })
-    // }
+    let foldersLength;
+    it('should get folders', function () {
+      return chai.request(app)
+        .get(`/api/folders/20`)
+        .then(res => {
 
-    // export const createFolders = (userid, postInfo) => dispatch => {
-    //   dispatch(fetchFoldersRequest());
-    //   return fetch(`/api/folders`, {
-    //     method: 'post',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //     }, 
-    //     body: JSON.stringify(postInfo)
-    //   })
-    //   .then(() => fetch(`/api/folders/${userid}`))
-    //   .then(res => res.json())
-    //   .then((res) => dispatch(fetchFoldersSuccess(res)))
-    //   .catch((err) => dispatch(fetchFoldersError(err)))    
-    // }
+        })
+    })
 
-    // export const deleteFolders = (userid, id) => dispatch => {
-    //   dispatch(fetchFoldersRequest());
-    //   return fetch(`/api/folders/${id}`, {
-    //       method: 'delete'
-    //     })
-    //   .then(res => fetch(`/api/folders/${userid}`))
-    //   .then(res => res.json())
-    //   .then((res) => dispatch(fetchFoldersSuccess(res)))
-    //   .catch((err) => dispatch(fetchFoldersError(err)))
-    // }
+    let fakeFolder;
+    let fakeFolderTwo;
+    let postId;
 
-    // export const updateFolders = (userid, id, postInfo) => dispatch => {
-    //     dispatch(fetchFoldersRequest());
-    //     return fetch(`/api/folders/${id}`, {
-    //         method: 'PATCH', 
-    //         headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //         }, 
-    //         body: JSON.stringify(postInfo)
-    //     })
-    //     .then(res => fetch(`/api/folders/${userid}`))
-    //     .then(res => res.json())
-    //     .then((res) => dispatch(fetchFoldersSuccess(res)))
-    //     .catch((err) => dispatch(fetchFoldersError(err)))
-    // }
+    it('should create folders', function () {
+      return chai.request(app)
+        .post(`/api/folders`)
+        .send(fakeFolder)
+        .then(res => {
 
+        })
+        .then(() => {
+          return chai.request(app)
+            .get(`/api/folders/20`)
+            .then(res => {
+
+            })
+        })
+    })
+
+    it('should update bookmarks', function () {
+      return chai.request(app)
+        .patch(`/api/folders/${postId}`)
+        .send(fakeFolderTwo)
+        .then(res => {
+
+        })
+        .then(() => {
+          return chai.request(app)
+            .get(`/api/folders/20`)
+            .then(res => {
+
+            })
+        })
+    })
+
+    it('should delete folders', function () {
+      return chai.request(app)
+        .delete(`/api/folders/${postId}`)
+        .then(res => {
+
+        })
+        .then(() => {
+          return chai.request(app)
+            .get(`/api/folders/20`)
+            .then(res => {
+
+            })
+        })
+    })
   })
 });
